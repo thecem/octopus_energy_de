@@ -15,6 +15,14 @@
         "data": {
           "account_number": "Account"
         }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate Octopus Energy DE",
+        "description": "Your Octopus credentials need to be updated.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
       }
     },
     "error": {
@@ -23,7 +31,8 @@
       "no_accounts": "No Octopus accounts were returned."
     },
     "abort": {
-      "already_configured": "This Octopus account is already configured."
+      "already_configured": "This Octopus account is already configured.",
+      "reauth_success": "Reauthentication was successful."
     }
   }
 }

@@ -6,11 +6,11 @@ from datetime import datetime, time
 from decimal import Decimal
 from typing import Any
 
-from ..models.rate import IntervalRate, TimeOfUseRate
-from ..models.tariff import Tariff
 from ...tariffs.detector import ProductDescriptor, TariffDetector
 from ...tariffs.families import detect_family
 from ...tariffs.types import TariffFamily, TariffType
+from ..models.rate import IntervalRate, TimeOfUseRate
+from ..models.tariff import Tariff
 
 
 def _parse_datetime(value: str | None) -> datetime | None:

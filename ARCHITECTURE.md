@@ -4,7 +4,7 @@
 
 ```text
 Home Assistant
-  sensor.py
+      sensor.py / switch.py / services.py
       |
       v
 coordinator.py
@@ -43,6 +43,10 @@ Future SmartFlex, vehicle, battery and heat-pump features belong here. `Intellig
 ### Entity layer
 
 Should remain thin: read coordinator models and expose Home Assistant state/attributes.
+
+## Polling
+
+Base tariff and supply data, meter readings, and SmartFlex data use separate coordinators. Historical consumption is loaded only through on-demand services.
 
 ## v0.1.0 technical compromises
 

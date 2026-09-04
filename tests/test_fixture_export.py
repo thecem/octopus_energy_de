@@ -2,7 +2,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 EXPORTER_PATH = Path(__file__).parents[1] / \
     "scripts" / "export_tariff_fixture.py"
 TARIFF_FIXTURE_PATH = Path(__file__).parent / "fixtures" / "mein_tarif.json"

@@ -1,8 +1,8 @@
 """Allow domain modules to be tested without importing Home Assistant integration bootstrap."""
 
-from pathlib import Path
 import sys
 import types
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 

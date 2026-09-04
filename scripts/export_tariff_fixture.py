@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-from datetime import date, datetime, timedelta
 import json
 import os
-from pathlib import Path
 import sys
+from datetime import date, datetime, timedelta
+from pathlib import Path
 
 import aiohttp
 

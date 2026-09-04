@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from ..models.tariff import AccountSnapshot, ElectricityMeter, ElectricitySupply
@@ -23,14 +23,14 @@ def _active_agreement(agreements: list[dict[str, Any]], now: datetime) -> dict[s
         if (start is None or start <= now) and (end is None or now < end):
             active.append(agreement)
     if active:
-        return max(active, key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=timezone.utc))
-    return max(agreements, key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=timezone.utc), default=None)
+        return max(active, key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=UTC))
+    return max(agreements, key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=UTC), default=None)
 
 
 def map_account_snapshot(account_number: str, response: dict[str, Any]) -> AccountSnapshot:
     account = (response.get("data") or {}).get("account") or {}
     supplies: list[ElectricitySupply] = []
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for property_data in account.get("allProperties") or []:
         for malo in property_data.get("electricityMalos") or []:
             agreement = _active_agreement(malo.get("agreements") or [], now)

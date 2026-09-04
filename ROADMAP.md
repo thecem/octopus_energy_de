@@ -1,5 +1,11 @@
 # Roadmap
 
+## v0.4.1 - stabilization (completed)
+
+- Correct manifest URLs and release documentation.
+- Reauthentication without removing a config entry.
+- Modularize the remaining coordinator, entity, and action surfaces in follow-up releases.
+
 ## v0.1.x - tariff validation
 
 - Collect anonymized real Kraken fixtures for Fixed, Go, Heat, dynamicOctopus, Intelligent Octopus Go 2024 and current Intelligent Octopus.

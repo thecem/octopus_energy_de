@@ -1,6 +1,6 @@
-from datetime import datetime, timezone
-from decimal import Decimal
 import json
+from datetime import UTC, datetime
+from decimal import Decimal
 from pathlib import Path
 
 from custom_components.octopus_energy_de.api.mappers.tariff import map_tariff
@@ -24,7 +24,7 @@ def test_fixed_mapping_and_rate():
     tariff = map_tariff(agreement)
     assert tariff.tariff_type is TariffType.FIXED
     assert TariffService.current_rate(
-        tariff, datetime.now(timezone.utc)) == Decimal("0.305")
+        tariff, datetime.now(UTC)) == Decimal("0.305")
 
 
 def test_dynamic_interval_length_is_data_driven():
@@ -55,7 +55,7 @@ def test_dynamic_interval_length_is_data_driven():
     tariff = map_tariff(agreement)
     assert tariff.tariff_type is TariffType.DYNAMIC
     assert tariff.family is TariffFamily.DYNAMIC_OCTOPUS
-    now = datetime(2026, 9, 4, 10, 25, tzinfo=timezone.utc)
+    now = datetime(2026, 9, 4, 10, 25, tzinfo=UTC)
     assert TariffService.current_rate(tariff, now) == Decimal("0.18")
 
 

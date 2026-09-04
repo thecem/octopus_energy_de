@@ -25,7 +25,8 @@ class OctopusEnergyDEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
         if user_input is not None:
             client = OctopusEnergyDEClient(
-                async_get_clientsession(self.hass), user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
+                async_get_clientsession(
+                    self.hass), user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
             )
             try:
                 self._accounts = await client.accounts()
@@ -64,9 +65,50 @@ class OctopusEnergyDEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             ),
         )
 
+    async def async_step_reauth(self, entry_data: dict[str, Any]):
+        """Start reauthentication after stored credentials are rejected."""
+        self._reauth_entry = self._get_reauth_entry()
+        return await self.async_step_reauth_confirm()
+
+    async def async_step_reauth_confirm(self, user_input: dict[str, Any] | None = None):
+        """Replace invalid credentials without recreating the config entry."""
+        errors: dict[str, str] = {}
+        if user_input is not None:
+            client = OctopusEnergyDEClient(
+                async_get_clientsession(self.hass),
+                user_input[CONF_EMAIL],
+                user_input[CONF_PASSWORD],
+            )
+            try:
+                await client.accounts()
+            except AuthenticationError:
+                errors["base"] = "invalid_auth"
+            except (CannotConnectError, GraphQLError):
+                errors["base"] = "cannot_connect"
+            else:
+                self.hass.config_entries.async_update_entry(
+                    self._reauth_entry,
+                    data={
+                        **self._reauth_entry.data,
+                        CONF_EMAIL: user_input[CONF_EMAIL],
+                        CONF_PASSWORD: user_input[CONF_PASSWORD],
+                    },
+                )
+                return self.async_abort(reason="reauth_success")
+
+        return self.async_show_form(
+            step_id="reauth_confirm",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(CONF_EMAIL, default=self._reauth_entry.data[CONF_EMAIL]): str,
+                    vol.Required(CONF_PASSWORD): str,
+                }
+            ),
+            errors=errors,
+        )
+
     async def _create_for_account(self, account_number: str):
         await self.async_set_unique_id(account_number)
         self._abort_if_unique_id_configured()
         data = {**self._credentials, CONF_ACCOUNT_NUMBER: account_number}
         return self.async_create_entry(title=f"Octopus Energy DE {account_number}", data=data)
-

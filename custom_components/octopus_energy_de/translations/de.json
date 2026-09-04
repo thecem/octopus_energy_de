@@ -15,6 +15,14 @@
         "data": {
           "account_number": "Konto"
         }
+      },
+      "reauth_confirm": {
+        "title": "Octopus Energy DE erneut authentifizieren",
+        "description": "Deine Octopus-Zugangsdaten müssen aktualisiert werden.",
+        "data": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        }
       }
     },
     "error": {
@@ -23,7 +31,8 @@
       "no_accounts": "Die API hat keine Octopus-Konten zurückgegeben."
     },
     "abort": {
-      "already_configured": "Dieses Octopus-Konto ist bereits eingerichtet."
+      "already_configured": "Dieses Octopus-Konto ist bereits eingerichtet.",
+      "reauth_success": "Die erneute Authentifizierung war erfolgreich."
     }
   }
 }

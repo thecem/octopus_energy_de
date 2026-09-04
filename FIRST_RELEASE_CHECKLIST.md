@@ -21,7 +21,7 @@ git init
 git add .
 git commit -m "feat: initial Octopus Energy DE release"
 git branch -M main
-git remote add origin git@github.com:YOUR_GITHUB_USER/octopus-energy-de.git
+git remote add origin git@github.com:YOUR_GITHUB_USER/octopus_energy_de.git
 git push -u origin main
 ```
 

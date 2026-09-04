@@ -2,7 +2,7 @@
 
 A new, modular Home Assistant custom integration for the **German Octopus Energy Kraken API**.
 
-> **Status: v0.4.0 development release.** Installable next to the older `octopus_germany` integration because this project uses the distinct Home Assistant domain `octopus_energy_de`.
+> **Status: v0.4.1 development release.** Installable next to the older `octopus_germany` integration because this project uses the distinct Home Assistant domain `octopus_energy_de`.
 
 This project is unofficial and is not affiliated with Octopus Energy.
 
@@ -31,7 +31,7 @@ Home Assistant entities
 
 Marketing product names are deliberately separated from technical tariff behavior. `Octopus Go` and `Octopus Heat`, for example, can both use the generic Time-of-Use handler while their product families remain distinguishable.
 
-## v0.4.0 features
+## v0.4.1 features
 
   - Fixed
   - Time of Use
@@ -50,6 +50,7 @@ Marketing product names are deliberately separated from technical tariff behavio
       - Read-only SmartFlex device state, state of charge, charging power, dispatches, and charging sessions
       - Smart Control and Boost Charge switches for eligible SmartFlex devices
       - `octopus_energy_de.set_device_preferences` service for target state of charge and time
+      - Reauthentication when Octopus credentials change
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) and [ROADMAP.md](ROADMAP.md).
 

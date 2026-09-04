@@ -1,3 +1,11 @@
+# v0.4.1 - Stabilization
+
+## Included
+
+- Corrected manifest documentation and issue-tracker URLs.
+- Reauthentication flow for updated Octopus credentials.
+- Automated fixture privacy check for authentication, account, meter, and device markers.
+
 # v0.4.0 - SmartFlex control
 
 ## Included

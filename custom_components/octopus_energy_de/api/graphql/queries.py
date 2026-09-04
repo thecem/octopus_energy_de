@@ -31,6 +31,11 @@ query Tariffs($accountNumber: String!) {
       id
       electricityMalos {
         maloNumber
+        meters {
+          id
+          meterType
+          number
+        }
         agreements {
           product {
             code
@@ -79,6 +84,51 @@ query Tariffs($accountNumber: String!) {
           }
           validFrom
           validTo
+        }
+      }
+    }
+  }
+}
+"""
+
+ELECTRICITY_METER_READINGS_QUERY = """
+query ElectricityMeterReadings($accountNumber: String!, $meterId: ID!) {
+  electricityMeterReadings(accountNumber: $accountNumber, meterId: $meterId, first: 100) {
+    edges {
+      node {
+        value
+        readAt
+        registerObisCode
+        registerType
+      }
+    }
+  }
+}
+"""
+
+ELECTRICITY_CONSUMPTION_QUERY = """
+query ElectricityConsumption($accountNumber: String!, $propertyId: ID!, $date: Date!) {
+  account(accountNumber: $accountNumber) {
+    property(id: $propertyId) {
+      measurements(
+        utilityFilters: {
+          electricityFilters: {
+            readingFrequencyType: RAW_INTERVAL
+            readingQuality: COMBINED
+          }
+        }
+        startOn: $date
+        first: 200
+      ) {
+        edges {
+          node {
+            ... on IntervalMeasurementType {
+              startAt
+              endAt
+              unit
+              value
+            }
+          }
         }
       }
     }

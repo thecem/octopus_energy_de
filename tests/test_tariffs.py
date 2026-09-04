@@ -1,9 +1,13 @@
 from datetime import datetime, timezone
 from decimal import Decimal
+import json
+from pathlib import Path
 
 from custom_components.octopus_energy_de.api.mappers.tariff import map_tariff
 from custom_components.octopus_energy_de.tariffs.registry import TariffService
 from custom_components.octopus_energy_de.tariffs.types import TariffFamily, TariffType
+
+FIXTURE_PATH = Path(__file__).parent / "fixtures" / "mein_tarif.json"
 
 
 def test_fixed_mapping_and_rate():
@@ -19,7 +23,8 @@ def test_fixed_mapping_and_rate():
     }
     tariff = map_tariff(agreement)
     assert tariff.tariff_type is TariffType.FIXED
-    assert TariffService.current_rate(tariff, datetime.now(timezone.utc)) == Decimal("0.305")
+    assert TariffService.current_rate(
+        tariff, datetime.now(timezone.utc)) == Decimal("0.305")
 
 
 def test_dynamic_interval_length_is_data_driven():
@@ -68,14 +73,16 @@ def test_go_and_heat_are_both_time_of_use():
                         "latestGrossUnitRateCentsPerKwh": 20,
                         "timeslotName": "LOW",
                         "timeslotActivationRules": [
-                            {"activeFromTime": "00:00:00", "activeToTime": "05:00:00"}
+                            {"activeFromTime": "00:00:00",
+                                "activeToTime": "05:00:00"}
                         ],
                     },
                     {
                         "latestGrossUnitRateCentsPerKwh": 30,
                         "timeslotName": "STANDARD",
                         "timeslotActivationRules": [
-                            {"activeFromTime": "05:00:00", "activeToTime": "00:00:00"}
+                            {"activeFromTime": "05:00:00",
+                                "activeToTime": "00:00:00"}
                         ],
                     },
                 ],
@@ -85,3 +92,21 @@ def test_go_and_heat_are_both_time_of_use():
         tariff = map_tariff(agreement)
         assert tariff.tariff_type is TariffType.TIME_OF_USE
         assert tariff.family is family
+
+
+def test_real_intelligent_go_fixture_distinguishes_fixed_and_tou_tariffs():
+    agreements = json.loads(FIXTURE_PATH.read_text())["agreements"]
+    tariffs = {agreement["product"]["code"]: map_tariff(
+        agreement) for agreement in agreements}
+
+    go_light = tariffs["DEU-ELECTRICITY-IO-GO-LIGHT-24"]
+    assert go_light.tariff_type is TariffType.FIXED
+    assert go_light.fixed_rate_eur_per_kwh == Decimal("0.237762")
+
+    intelligent_go = tariffs["DEU-ELECTRICITY-IO-GO-24"]
+    assert intelligent_go.tariff_type is TariffType.TIME_OF_USE
+    assert intelligent_go.family is TariffFamily.INTELLIGENT_OCTOPUS_GO_LEGACY
+    assert [(rate.name, rate.value_eur_per_kwh) for rate in intelligent_go.tou_rates] == [
+        ("GO", Decimal("0.150654")),
+        ("STANDARD", Decimal("0.282744")),
+    ]

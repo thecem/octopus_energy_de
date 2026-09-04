@@ -2,13 +2,15 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Start Home Assistant",
+            "label": "Start Home Assistant (port 8123)",
             "type": "shell",
             "command": "bash scripts/develop",
+            "group": "test",
             "presentation": {
                 "reveal": "always",
                 "panel": "dedicated"
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }

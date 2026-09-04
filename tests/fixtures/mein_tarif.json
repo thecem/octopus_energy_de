@@ -1,0 +1,569 @@
+{
+  "schema": 1,
+  "agreements": [
+    {
+      "product": {
+        "code": "DEU-ELECTRICITY-SELECT-24",
+        "description": "OctopusSelect Strom for Price Comparison Services only",
+        "fullName": "offline - OctopusSelect Strom",
+        "isTimeOfUse": false
+      },
+      "unitRateInformation": {
+        "__typename": "SimpleProductUnitRateInformation",
+        "latestGrossUnitRateCentsPerKwh": "27.3224",
+        "grossRateInformation": [
+          {
+            "date": "2023-08-21",
+            "grossRate": "27.3224",
+            "rateValidToDate": null,
+            "vatRate": "19"
+          }
+        ]
+      },
+      "unitRateForecast": [],
+      "validFrom": "2023-08-20T22:00:00+00:00",
+      "validTo": "2024-04-05T22:00:00+00:00"
+    },
+    {
+      "product": {
+        "code": "DEU-ELECTRICITY-IO-GO-LIGHT-24",
+        "description": "Interim IO Go tariff with 24 months price guarantee offered on special website, for customers waiting for us to connect to their smart meter",
+        "fullName": "offline - Intelligent Octopus Go Light 24",
+        "isTimeOfUse": false
+      },
+      "unitRateInformation": {
+        "__typename": "SimpleProductUnitRateInformation",
+        "latestGrossUnitRateCentsPerKwh": "23.7762",
+        "grossRateInformation": [
+          {
+            "date": "2024-12-23",
+            "grossRate": "23.7762",
+            "rateValidToDate": null,
+            "vatRate": "19"
+          }
+        ]
+      },
+      "unitRateForecast": [],
+      "validFrom": "2024-12-22T23:00:00+00:00",
+      "validTo": "2025-06-30T22:00:00+00:00"
+    },
+    {
+      "product": {
+        "code": "DEU-ELECTRICITY-IO-GO-24",
+        "description": "OEDE Intelligent Octopus Go w/ 24M price guarantee and contract run time",
+        "fullName": "offline - Intelligent Octopus Go 24",
+        "isTimeOfUse": true
+      },
+      "unitRateInformation": {
+        "__typename": "TimeOfUseProductUnitRateInformation",
+        "rates": [
+          {
+            "latestGrossUnitRateCentsPerKwh": "15.0654",
+            "timeslotName": "GO",
+            "timeslotActivationRules": [
+              {
+                "activeFromTime": "00:00:00",
+                "activeToTime": "05:00:00"
+              }
+            ]
+          },
+          {
+            "latestGrossUnitRateCentsPerKwh": "28.2744",
+            "timeslotName": "STANDARD",
+            "timeslotActivationRules": [
+              {
+                "activeFromTime": "05:00:00",
+                "activeToTime": "00:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      "unitRateForecast": [],
+      "validFrom": "2025-06-30T22:00:00+00:00",
+      "validTo": "2026-12-22T23:00:00+00:00"
+    }
+  ],
+  "electricity_measurement_intervals": [
+    {
+      "start_offset_seconds": 0,
+      "end_offset_seconds": 900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 900,
+      "end_offset_seconds": 1800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 1800,
+      "end_offset_seconds": 2700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 2700,
+      "end_offset_seconds": 3600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 3600,
+      "end_offset_seconds": 4500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 4500,
+      "end_offset_seconds": 5400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 5400,
+      "end_offset_seconds": 6300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 6300,
+      "end_offset_seconds": 7200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 7200,
+      "end_offset_seconds": 8100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 8100,
+      "end_offset_seconds": 9000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 9000,
+      "end_offset_seconds": 9900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 9900,
+      "end_offset_seconds": 10800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 10800,
+      "end_offset_seconds": 11700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 11700,
+      "end_offset_seconds": 12600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 12600,
+      "end_offset_seconds": 13500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 13500,
+      "end_offset_seconds": 14400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 14400,
+      "end_offset_seconds": 15300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 15300,
+      "end_offset_seconds": 16200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 16200,
+      "end_offset_seconds": 17100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 17100,
+      "end_offset_seconds": 18000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 18000,
+      "end_offset_seconds": 18900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 18900,
+      "end_offset_seconds": 19800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 19800,
+      "end_offset_seconds": 20700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 20700,
+      "end_offset_seconds": 21600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 21600,
+      "end_offset_seconds": 22500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 22500,
+      "end_offset_seconds": 23400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 23400,
+      "end_offset_seconds": 24300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 24300,
+      "end_offset_seconds": 25200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 25200,
+      "end_offset_seconds": 26100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 26100,
+      "end_offset_seconds": 27000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 27000,
+      "end_offset_seconds": 27900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 27900,
+      "end_offset_seconds": 28800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 28800,
+      "end_offset_seconds": 29700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 29700,
+      "end_offset_seconds": 30600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 30600,
+      "end_offset_seconds": 31500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 31500,
+      "end_offset_seconds": 32400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 32400,
+      "end_offset_seconds": 33300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 33300,
+      "end_offset_seconds": 34200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 34200,
+      "end_offset_seconds": 35100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 35100,
+      "end_offset_seconds": 36000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 36000,
+      "end_offset_seconds": 36900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 36900,
+      "end_offset_seconds": 37800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 37800,
+      "end_offset_seconds": 38700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 38700,
+      "end_offset_seconds": 39600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 39600,
+      "end_offset_seconds": 40500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 40500,
+      "end_offset_seconds": 41400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 41400,
+      "end_offset_seconds": 42300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 42300,
+      "end_offset_seconds": 43200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 43200,
+      "end_offset_seconds": 44100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 44100,
+      "end_offset_seconds": 45000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 45000,
+      "end_offset_seconds": 45900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 45900,
+      "end_offset_seconds": 46800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 46800,
+      "end_offset_seconds": 47700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 47700,
+      "end_offset_seconds": 48600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 48600,
+      "end_offset_seconds": 49500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 49500,
+      "end_offset_seconds": 50400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 50400,
+      "end_offset_seconds": 51300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 51300,
+      "end_offset_seconds": 52200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 52200,
+      "end_offset_seconds": 53100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 53100,
+      "end_offset_seconds": 54000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 54000,
+      "end_offset_seconds": 54900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 54900,
+      "end_offset_seconds": 55800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 55800,
+      "end_offset_seconds": 56700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 56700,
+      "end_offset_seconds": 57600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 57600,
+      "end_offset_seconds": 58500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 58500,
+      "end_offset_seconds": 59400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 59400,
+      "end_offset_seconds": 60300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 60300,
+      "end_offset_seconds": 61200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 61200,
+      "end_offset_seconds": 62100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 62100,
+      "end_offset_seconds": 63000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 63000,
+      "end_offset_seconds": 63900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 63900,
+      "end_offset_seconds": 64800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 64800,
+      "end_offset_seconds": 65700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 65700,
+      "end_offset_seconds": 66600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 66600,
+      "end_offset_seconds": 67500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 67500,
+      "end_offset_seconds": 68400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 68400,
+      "end_offset_seconds": 69300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 69300,
+      "end_offset_seconds": 70200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 70200,
+      "end_offset_seconds": 71100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 71100,
+      "end_offset_seconds": 72000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 72000,
+      "end_offset_seconds": 72900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 72900,
+      "end_offset_seconds": 73800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 73800,
+      "end_offset_seconds": 74700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 74700,
+      "end_offset_seconds": 75600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 75600,
+      "end_offset_seconds": 76500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 76500,
+      "end_offset_seconds": 77400,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 77400,
+      "end_offset_seconds": 78300,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 78300,
+      "end_offset_seconds": 79200,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 79200,
+      "end_offset_seconds": 80100,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 80100,
+      "end_offset_seconds": 81000,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 81000,
+      "end_offset_seconds": 81900,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 81900,
+      "end_offset_seconds": 82800,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 82800,
+      "end_offset_seconds": 83700,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 83700,
+      "end_offset_seconds": 84600,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 84600,
+      "end_offset_seconds": 85500,
+      "unit": "kwh"
+    },
+    {
+      "start_offset_seconds": 85500,
+      "end_offset_seconds": 86400,
+      "unit": "kwh"
+    }
+  ]
+}

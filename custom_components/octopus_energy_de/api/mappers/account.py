@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from ..models.tariff import AccountSnapshot, ElectricitySupply
+from ..models.tariff import AccountSnapshot, ElectricityMeter, ElectricitySupply
 from .tariff import map_tariff
 
 
@@ -35,10 +35,22 @@ def map_account_snapshot(account_number: str, response: dict[str, Any]) -> Accou
         for malo in property_data.get("electricityMalos") or []:
             agreement = _active_agreement(malo.get("agreements") or [], now)
             if agreement:
+                meters = tuple(
+                    ElectricityMeter(
+                        meter_id=meter["id"],
+                        number=meter.get("number"),
+                        meter_type=meter.get("meterType"),
+                    )
+                    for meter in malo.get("meters") or []
+                    if meter.get("id")
+                )
                 supplies.append(
                     ElectricitySupply(
-                        supply_point_id=malo.get("maloNumber") or property_data.get("id") or "electricity",
+                        supply_point_id=malo.get("maloNumber") or property_data.get(
+                            "id") or "electricity",
                         tariff=map_tariff(agreement),
+                        meters=meters,
+                        property_id=property_data.get("id"),
                     )
                 )
     return AccountSnapshot(account_number=account_number, electricity=tuple(supplies))

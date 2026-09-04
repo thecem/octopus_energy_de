@@ -1,0 +1,29 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Octopus Energy DE",
+        "description": "Mit dem Octopus-Energy-Deutschland-Konto anmelden.",
+        "data": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        }
+      },
+      "account": {
+        "title": "Konto auswählen",
+        "description": "Wähle das Octopus-Konto aus, das hinzugefügt werden soll.",
+        "data": {
+          "account_number": "Konto"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zu Octopus Energy Deutschland fehlgeschlagen.",
+      "invalid_auth": "Ungültige Zugangsdaten.",
+      "no_accounts": "Die API hat keine Octopus-Konten zurückgegeben."
+    },
+    "abort": {
+      "already_configured": "Dieses Octopus-Konto ist bereits eingerichtet."
+    }
+  }
+}

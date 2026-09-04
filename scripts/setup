@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+python -m pip install --upgrade pip
+python -m pip install -r requirements-dev.txt
+mkdir -p config/custom_components
+ln -sfn "${PWD}/custom_components/octopus_energy_de" "${PWD}/config/custom_components/octopus_energy_de"
+if [[ ! -f config/configuration.yaml ]]; then
+  cat > config/configuration.yaml <<'YAML'
+default_config:
+
+logger:
+  default: info
+  logs:
+    custom_components.octopus_energy_de: debug
+YAML
+fi

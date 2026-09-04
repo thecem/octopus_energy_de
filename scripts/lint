@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+ruff check custom_components tests scripts
+ruff format --check custom_components tests
+python -m compileall -q custom_components tests

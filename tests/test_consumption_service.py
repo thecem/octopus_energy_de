@@ -4,15 +4,15 @@ from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
 
+from custom_components.octopus_energy_de.actions.consumption import (
+    async_get_electricity_consumption,
+)
+from custom_components.octopus_energy_de.actions.export import write_consumption_csv
 from custom_components.octopus_energy_de.api.models.tariff import (
     ElectricityConsumption,
     ElectricityConsumptionInterval,
     ElectricitySupply,
     Tariff,
-)
-from custom_components.octopus_energy_de.services import (
-    _write_consumption_csv,
-    async_get_electricity_consumption,
 )
 from custom_components.octopus_energy_de.tariffs.types import TariffType
 
@@ -51,7 +51,7 @@ def test_consumption_service_fetches_only_the_requested_day():
 def test_consumption_csv_contains_one_row_per_interval(tmp_path: Path):
     output_path = tmp_path / "consumption.csv"
 
-    _write_consumption_csv(
+    write_consumption_csv(
         output_path,
         {"measurement_scope": "property", "supply_point_id": "supply"},
         [{"date": "2026-09-03", "start": "a", "end": "b", "consumption_kwh": "0.42"}],

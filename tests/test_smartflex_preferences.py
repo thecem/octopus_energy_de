@@ -2,8 +2,8 @@ import asyncio
 
 import pytest
 
+from custom_components.octopus_energy_de.actions.preferences import validate_target_time
 from custom_components.octopus_energy_de.api.client import OctopusEnergyDEClient
-from custom_components.octopus_energy_de.services import _validate_target_time
 
 
 class _Auth:
@@ -33,6 +33,6 @@ def test_device_preferences_use_all_days_and_normalized_time():
 
 
 def test_target_time_is_limited_to_supported_window():
-    assert _validate_target_time("06:30:00") == "06:30"
+    assert validate_target_time("06:30:00") == "06:30"
     with pytest.raises(Exception, match="04:00"):
-        _validate_target_time("03:59")
+        validate_target_time("03:59")

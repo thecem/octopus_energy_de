@@ -1,0 +1,38 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  hacs:
+    name: HACS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hacs/action@main
+        with:
+          category: integration
+
+  hassfest:
+    name: Hassfest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: home-assistant/actions/hassfest@master
+
+  metadata:
+    name: Metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: |
+          python -m json.tool custom_components/octopus_energy_de/manifest.json >/dev/null
+          python -m json.tool custom_components/octopus_energy_de/strings.json >/dev/null
+          python -m json.tool custom_components/octopus_energy_de/translations/de.json >/dev/null
+          python -m json.tool hacs.json >/dev/null
+      - name: Check required brand files
+        run: |
+          test -f custom_components/octopus_energy_de/brand/icon.png
+          test -f custom_components/octopus_energy_de/brand/logo.png

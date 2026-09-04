@@ -2,23 +2,30 @@
 
 from __future__ import annotations
 
+import logging
 from datetime import date, timedelta
 from typing import Any
 
 import aiohttp
 
 from .auth import OctopusAuth
+from .exceptions import OctopusEnergyDEError
 from .graphql.queries import (
     ACCOUNT_DISCOVERY_QUERY,
     ELECTRICITY_CONSUMPTION_QUERY,
     ELECTRICITY_METER_READINGS_QUERY,
+    SMARTFLEX_QUERY,
     TARIFF_QUERY,
 )
 from .graphql.transport import GraphQLTransport
 from .mappers.account import map_account_snapshot
 from .mappers.consumption import map_electricity_consumption
 from .mappers.meter import map_electricity_meter_readings
+from .mappers.smartflex import map_smartflex_snapshot
+from .models.smartflex import SmartFlexSnapshot
 from .models.tariff import AccountSnapshot, ElectricityConsumption, ElectricityMeterReading
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class OctopusEnergyDEClient:
@@ -43,6 +50,7 @@ class OctopusEnergyDEClient:
         snapshot = map_account_snapshot(account_number, result)
         readings: list[ElectricityMeterReading] = []
         consumption: list[ElectricityConsumption] = []
+        smartflex = SmartFlexSnapshot()
         for supply in snapshot.electricity:
             for meter in supply.meters:
                 readings.extend(
@@ -58,11 +66,16 @@ class OctopusEnergyDEClient:
                         account_number, supply.property_id, token
                     )
                 )
+        try:
+            smartflex = await self.smartflex_snapshot(account_number, token)
+        except OctopusEnergyDEError as err:
+            _LOGGER.debug("SmartFlex data unavailable for account: %s", err)
         return AccountSnapshot(
             account_number=snapshot.account_number,
             electricity=snapshot.electricity,
             electricity_meter_readings=tuple(readings),
             electricity_consumption=tuple(consumption),
+            smartflex=smartflex,
         )
 
     async def electricity_meter_readings(
@@ -89,3 +102,13 @@ class OctopusEnergyDEClient:
             token=token or await self.auth.ensure_token(),
         )
         return map_electricity_consumption(property_id, measurement_date, result)
+
+    async def smartflex_snapshot(
+        self, account_number: str, token: str | None = None
+    ) -> SmartFlexSnapshot:
+        result = await self.transport.execute(
+            SMARTFLEX_QUERY,
+            variables={"accountNumber": account_number},
+            token=token or await self.auth.ensure_token(),
+        )
+        return map_smartflex_snapshot(result)

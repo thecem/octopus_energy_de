@@ -1,3 +1,17 @@
+# v0.3.0 - SmartFlex foundation
+
+## Included
+
+- Electricity meters and newest available readings for every returned OBIS register.
+- Previous-day electricity consumption with Kraken interval boundaries preserved.
+- Read-only SmartFlex devices, completed dispatches, and charging sessions.
+- SmartFlex device state, state of charge, and charging-power sensors when available.
+
+## Not included
+
+- Smart Control, Boost, or device preference changes. These remain planned for v0.4.0.
+- Gas support, planned for v0.5.0.
+
 # v0.1.0 - Initial development release
 
 This is the first clean-room architecture release of **Octopus Energy DE** for Home Assistant.

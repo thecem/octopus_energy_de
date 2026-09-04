@@ -8,6 +8,7 @@ from decimal import Decimal
 
 from ...tariffs.types import TariffFamily, TariffType
 from .rate import IntervalRate, TimeOfUseRate
+from .smartflex import SmartFlexSnapshot
 
 
 @dataclass(frozen=True, slots=True)
@@ -80,3 +81,4 @@ class AccountSnapshot:
         default_factory=tuple)
     electricity_consumption: tuple[ElectricityConsumption, ...] = field(
         default_factory=tuple)
+    smartflex: SmartFlexSnapshot = field(default_factory=SmartFlexSnapshot)

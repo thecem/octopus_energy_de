@@ -6,13 +6,13 @@
 - Harden tariff mapper and DST behavior.
 - Add diagnostics with automatic redaction.
 
-## v0.2.0 - consumption and meters
+## v0.2.0 - consumption and meters (completed)
 
 - Electricity meter model and latest reading.
 - Historical consumption coordinator.
 - Preserve API interval lengths as returned by Kraken.
 
-## v0.3.0 - SmartFlex foundation
+## v0.3.0 - SmartFlex foundation (completed)
 
 - Device model and capabilities.
 - Dispatches and charging sessions.

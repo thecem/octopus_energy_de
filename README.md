@@ -2,7 +2,7 @@
 
 A new, modular Home Assistant custom integration for the **German Octopus Energy Kraken API**.
 
-> **Status: v0.1.0 development release.** Installable next to the older `octopus_germany` integration because this project uses the distinct Home Assistant domain `octopus_energy_de`.
+> **Status: v0.3.0 development release.** Installable next to the older `octopus_germany` integration because this project uses the distinct Home Assistant domain `octopus_energy_de`.
 
 This project is unofficial and is not affiliated with Octopus Energy.
 
@@ -31,7 +31,7 @@ Home Assistant entities
 
 Marketing product names are deliberately separated from technical tariff behavior. `Octopus Go` and `Octopus Heat`, for example, can both use the generic Time-of-Use handler while their product families remain distinguishable.
 
-## v0.1.0 features
+## v0.3.0 features
 
   - Fixed
   - Time of Use
@@ -45,6 +45,9 @@ Marketing product names are deliberately separated from technical tariff behavio
   - Current rate (`EUR/kWh`)
   - Next rate (`EUR/kWh`)
   - Tariff information
+      - Latest electricity meter reading for every returned OBIS register
+      - Previous-day electricity consumption with Kraken interval boundaries preserved
+      - Read-only SmartFlex device state, state of charge, charging power, dispatches, and charging sessions
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) and [ROADMAP.md](ROADMAP.md).
 

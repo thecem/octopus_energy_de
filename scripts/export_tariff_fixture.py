@@ -6,11 +6,6 @@ No credentials are written to disk. Supply point/account identifiers are omitted
 """
 
 from __future__ import annotations
-from custom_components.octopus_energy_de.api.graphql.queries import (
-    ELECTRICITY_CONSUMPTION_QUERY,
-    TARIFF_QUERY,
-)
-from custom_components.octopus_energy_de.api.client import OctopusEnergyDEClient
 
 import argparse
 import asyncio
@@ -24,6 +19,12 @@ import aiohttp
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+
+from custom_components.octopus_energy_de.api.client import OctopusEnergyDEClient  # noqa: E402
+from custom_components.octopus_energy_de.api.graphql.queries import (  # noqa: E402
+    ELECTRICITY_CONSUMPTION_QUERY,
+    TARIFF_QUERY,
+)
 
 
 def minimize(response: dict) -> dict:

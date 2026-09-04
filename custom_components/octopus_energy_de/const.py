@@ -4,7 +4,7 @@ from datetime import timedelta
 
 DOMAIN = "octopus_energy_de"
 NAME = "Octopus Energy DE"
-VERSION = "0.1.0"
+VERSION = "0.3.0"
 
 CONF_ACCOUNT_NUMBER = "account_number"
 

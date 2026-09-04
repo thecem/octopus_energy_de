@@ -30,5 +30,6 @@ class OctopusEnergyDESmartFlexCoordinator(DataUpdateCoordinator[SmartFlexSnapsho
         try:
             return await self.client.smartflex_snapshot(self.account_number)
         except OctopusEnergyDEError as err:
-            self.logger.debug("SmartFlex data unavailable for account: %s", err)
+            self.logger.debug(
+                "SmartFlex data unavailable for account: %s", err)
             return SmartFlexSnapshot()

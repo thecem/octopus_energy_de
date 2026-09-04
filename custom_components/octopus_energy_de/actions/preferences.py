@@ -24,7 +24,8 @@ def validate_target_time(value: str) -> str:
     try:
         parsed = time.fromisoformat(value)
     except ValueError as err:
-        raise HomeAssistantError("target_time must use HH:MM or HH:MM:SS") from err
+        raise HomeAssistantError(
+            "target_time must use HH:MM or HH:MM:SS") from err
     if not 4 <= parsed.hour <= 17:
         raise HomeAssistantError("target_time must be between 04:00 and 17:59")
     return parsed.strftime("%H:%M")
@@ -44,4 +45,5 @@ async def async_set_device_preferences(hass: HomeAssistant, call: ServiceCall) -
             )
             await runtime.smartflex_coordinator.async_request_refresh()
             return
-    raise HomeAssistantError("SmartFlex device was not found in an active Octopus Energy DE entry")
+    raise HomeAssistantError(
+        "SmartFlex device was not found in an active Octopus Energy DE entry")

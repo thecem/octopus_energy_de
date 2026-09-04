@@ -17,6 +17,8 @@ from .const import DOMAIN
 SERVICE_SET_DEVICE_PREFERENCES = "set_device_preferences"
 SERVICE_GET_ELECTRICITY_CONSUMPTION = "get_electricity_consumption"
 SERVICE_EXPORT_ELECTRICITY_CONSUMPTION_CSV = "export_electricity_consumption_csv"
+
+
 def async_register_services(hass: HomeAssistant) -> None:
     if not hass.services.has_service(DOMAIN, SERVICE_SET_DEVICE_PREFERENCES):
         hass.services.async_register(

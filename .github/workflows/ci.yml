@@ -14,5 +14,5 @@ jobs:
           python-version: "3.14"
           cache: pip
       - run: python -m pip install -r requirements-dev.txt
-      - run: scripts/lint
-      - run: scripts/test
+      - run: bash scripts/lint
+      - run: bash scripts/test

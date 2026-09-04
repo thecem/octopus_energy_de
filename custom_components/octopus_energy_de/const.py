@@ -4,7 +4,7 @@ from datetime import timedelta
 
 DOMAIN = "octopus_energy_de"
 NAME = "Octopus Energy DE"
-VERSION = "0.3.0"
+VERSION = "0.4.0"
 
 CONF_ACCOUNT_NUMBER = "account_number"
 
@@ -13,4 +13,4 @@ DEFAULT_SCAN_INTERVAL = timedelta(minutes=5)
 REQUEST_TIMEOUT = 30
 TOKEN_REFRESH_MARGIN_SECONDS = 300
 
-PLATFORMS = ["sensor"]
+PLATFORMS = ["sensor", "switch"]

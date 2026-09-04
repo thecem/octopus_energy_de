@@ -189,3 +189,15 @@ query SmartFlex($accountNumber: String!) {
   }
 }
 """
+
+SMART_CONTROL_MUTATION = """
+mutation UpdateDeviceSmartControl($deviceId: ID!, $action: SmartControlAction!) {
+  updateDeviceSmartControl(input: {deviceId: $deviceId, action: $action}) { id }
+}
+"""
+
+BOOST_CHARGE_MUTATION = """
+mutation UpdateBoostCharge($input: UpdateBoostChargeInput!) {
+  updateBoostCharge(input: $input) { id }
+}
+"""

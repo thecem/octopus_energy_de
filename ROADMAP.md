@@ -18,7 +18,7 @@
 - Dispatches and charging sessions.
 - EV / charge-point sensors.
 
-## v0.4.0 - SmartFlex control
+## v0.4.0 - SmartFlex control (completed)
 
 - Smart Control.
 - Boost.

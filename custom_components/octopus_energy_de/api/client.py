@@ -12,8 +12,10 @@ from .auth import OctopusAuth
 from .exceptions import OctopusEnergyDEError
 from .graphql.queries import (
     ACCOUNT_DISCOVERY_QUERY,
+    BOOST_CHARGE_MUTATION,
     ELECTRICITY_CONSUMPTION_QUERY,
     ELECTRICITY_METER_READINGS_QUERY,
+    SMART_CONTROL_MUTATION,
     SMARTFLEX_QUERY,
     TARIFF_QUERY,
 )
@@ -112,3 +114,38 @@ class OctopusEnergyDEClient:
             token=token or await self.auth.ensure_token(),
         )
         return map_smartflex_snapshot(result)
+
+    async def set_smart_control(self, device_id: str, enabled: bool) -> None:
+        await self.transport.execute(
+            SMART_CONTROL_MUTATION,
+            variables={"deviceId": device_id,
+                       "action": "UNSUSPEND" if enabled else "SUSPEND"},
+            token=await self.auth.ensure_token(),
+        )
+
+    async def set_boost_charge(self, device_id: str, enabled: bool) -> None:
+        await self.transport.execute(
+            BOOST_CHARGE_MUTATION,
+            variables={"input": {"deviceId": device_id,
+                                 "action": "BOOST" if enabled else "CANCEL"}},
+            token=await self.auth.ensure_token(),
+        )
+
+    async def set_device_preferences(
+        self, device_id: str, target_percentage: int, target_time: str
+    ) -> None:
+        schedules = "\n".join(
+            f'{{ dayOfWeek: {day}, time: "{target_time}", max: {target_percentage} }}'
+            for day in ("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY")
+        )
+        mutation = f"""
+        mutation SetDevicePreferences {{
+          setDevicePreferences(input: {{
+            deviceId: "{device_id}",
+            mode: CHARGE,
+            unit: PERCENTAGE,
+            schedules: [{schedules}]
+          }}) {{ id }}
+        }}
+        """
+        await self.transport.execute(mutation, token=await self.auth.ensure_token())

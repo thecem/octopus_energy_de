@@ -1,3 +1,16 @@
+# v0.4.0 - SmartFlex control
+
+## Included
+
+- Smart Control switches that suspend or resume eligible SmartFlex devices.
+- Boost Charge switches that start or cancel a Boost session.
+- `octopus_energy_de.set_device_preferences` service with validated target state of charge and target time.
+
+## Safety
+
+- All SmartFlex actions require an explicit switch or service invocation.
+- The integration does not issue control mutations during polling or setup.
+
 # v0.3.0 - SmartFlex foundation
 
 ## Included

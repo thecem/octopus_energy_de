@@ -24,7 +24,8 @@ def map_electricity_meter_readings(
         reading = ElectricityMeterReading(
             meter_id=meter_id,
             value=Decimal(str(node["value"])),
-            read_at=datetime.fromisoformat(read_at.replace("Z", "+00:00")) if read_at else None,
+            read_at=datetime.fromisoformat(
+                read_at.replace("Z", "+00:00")) if read_at else None,
             register_obis_code=register_obis_code,
             register_type=node.get("registerType"),
         )

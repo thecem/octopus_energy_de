@@ -1,38 +1,39 @@
 {
+  "title": "Octopus Energy DE",
   "config": {
     "step": {
       "user": {
         "title": "Octopus Energy DE",
-        "description": "Mit dem Octopus-Energy-Deutschland-Konto anmelden.",
+        "description": "Verbinde dein Octopus-Energy-Deutschland-Konto.",
         "data": {
-          "email": "E-Mail",
+          "email": "E-Mail-Adresse",
           "password": "Passwort"
         }
       },
       "account": {
         "title": "Konto auswählen",
-        "description": "Wähle das Octopus-Konto aus, das hinzugefügt werden soll.",
+        "description": "Wähle das Octopus-Energy-Konto aus, das hinzugefügt werden soll.",
         "data": {
           "account_number": "Konto"
         }
       },
       "reauth_confirm": {
-        "title": "Octopus Energy DE erneut authentifizieren",
-        "description": "Deine Octopus-Zugangsdaten müssen aktualisiert werden.",
+        "title": "Octopus Energy DE neu authentifizieren",
+        "description": "Gib deine aktuellen Zugangsdaten für Octopus Energy Deutschland ein.",
         "data": {
-          "email": "E-Mail",
+          "email": "E-Mail-Adresse",
           "password": "Passwort"
         }
       }
     },
     "error": {
-      "cannot_connect": "Verbindung zu Octopus Energy Deutschland fehlgeschlagen.",
-      "invalid_auth": "Ungültige Zugangsdaten.",
-      "no_accounts": "Die API hat keine Octopus-Konten zurückgegeben."
+      "invalid_auth": "Anmeldung fehlgeschlagen. Prüfe E-Mail-Adresse und Passwort.",
+      "cannot_connect": "Verbindung zu Octopus Energy Deutschland nicht möglich.",
+      "unknown": "Unerwarteter Fehler."
     },
     "abort": {
-      "already_configured": "Dieses Octopus-Konto ist bereits eingerichtet.",
-      "reauth_success": "Die erneute Authentifizierung war erfolgreich."
+      "already_configured": "Dieses Octopus-Energy-Konto ist bereits eingerichtet.",
+      "reauth_successful": "Die erneute Authentifizierung war erfolgreich."
     }
   }
 }

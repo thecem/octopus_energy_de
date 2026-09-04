@@ -84,16 +84,14 @@ class SmartControlSwitch(SmartFlexControlSwitch):
             await self.coordinator.client.set_smart_control(self._device_id, enabled=True)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to enable Smart Control: {err}") from err
+            raise HomeAssistantError(f"Unable to enable Smart Control: {err}") from err
 
     async def async_turn_off(self, **kwargs: object) -> None:
         try:
             await self.coordinator.client.set_smart_control(self._device_id, enabled=False)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to disable Smart Control: {err}") from err
+            raise HomeAssistantError(f"Unable to disable Smart Control: {err}") from err
 
 
 class BoostChargeSwitch(SmartFlexControlSwitch):
@@ -116,13 +114,11 @@ class BoostChargeSwitch(SmartFlexControlSwitch):
             await self.coordinator.client.set_boost_charge(self._device_id, enabled=True)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to enable Boost Charge: {err}") from err
+            raise HomeAssistantError(f"Unable to enable Boost Charge: {err}") from err
 
     async def async_turn_off(self, **kwargs: object) -> None:
         try:
             await self.coordinator.client.set_boost_charge(self._device_id, enabled=False)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to disable Boost Charge: {err}") from err
+            raise HomeAssistantError(f"Unable to disable Boost Charge: {err}") from err

@@ -1,7 +1,9 @@
 {
   "name": "Octopus Energy DE - Home Assistant",
-  "image": "mcr.microsoft.com/devcontainers/python:3.13-bookworm",
-  "forwardPorts": [8123],
+  "image": "mcr.microsoft.com/devcontainers/python:3.14-bookworm",
+  "forwardPorts": [
+    8123
+  ],
   "portsAttributes": {
     "8123": {
       "label": "Home Assistant",
@@ -21,7 +23,9 @@
         "python.defaultInterpreterPath": "/usr/local/bin/python",
         "editor.formatOnSave": true,
         "python.testing.pytestEnabled": true,
-        "python.testing.pytestArgs": ["tests"]
+        "python.testing.pytestArgs": [
+          "tests"
+        ]
       }
     }
   }

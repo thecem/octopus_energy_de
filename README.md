@@ -33,32 +33,18 @@ Marketing product names are deliberately separated from technical tariff behavio
 
 ## v0.1.0 features
 
-- UI configuration flow
-- Octopus Energy Germany email/password login
-- Account discovery and account selection
-- Electricity tariff discovery
-- Technical tariff types:
   - Fixed
   - Time of Use
   - Dynamic
   - Unknown fallback
-- Initial product-family recognition:
   - Octopus Go
   - Octopus Heat
   - dynamicOctopus
   - Intelligent Octopus
   - legacy Intelligent Octopus Go
-- Sensors per electricity supply:
   - Current rate (`EUR/kWh`)
   - Next rate (`EUR/kWh`)
   - Tariff information
-- Dynamic pricing uses the exact `validFrom` / `validTo` periods returned by Kraken
-- TOU pricing uses `timeslotActivationRules`; Go/Heat hours are not hardcoded
-- Safe fixture export tool for collecting tariff API examples
-- Dev Container development environment
-- pytest / Ruff-ready project structure
-- GitHub CI and release ZIP workflow
-- HACS metadata
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) and [ROADMAP.md](ROADMAP.md).
 
@@ -111,12 +97,10 @@ The repository contains `hacs.json` and a HACS validation workflow.
 
 Requirements on the host:
 
-- Docker
-- VS Code + Dev Containers extension, or another IDE supporting the Dev Container specification
 
 Open the repository and choose **Reopen in Container**.
 
-The container uses Python 3.13, installs Home Assistant and the development dependencies, forwards port `8123`, and links the integration into the local HA test configuration.
+The container uses Python 3.14, installs Home Assistant and the development dependencies, forwards port `8123`, and links the integration into the local HA test configuration.
 
 Then run:
 
@@ -205,14 +189,6 @@ SmartFlex will be added as a capability layer rather than as another tariff algo
 
 This is an early test release. It intentionally does not yet include:
 
-- SmartFlex control
-- Intelligent dispatch sensors
-- EV state of charge
-- charging sessions
-- Boost
-- historical electricity consumption
-- meter readings
-- gas
 
 The first priority is to validate the German tariff API structures using anonymized real fixtures.
 
@@ -222,17 +198,9 @@ The German Kraken endpoint and the GraphQL fields used in this release were cros
 
 Useful references:
 
-- https://github.com/thecem/octopus_germany
-- https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy
-- https://developers.home-assistant.io/docs/creating_component_index/
-- https://developers.home-assistant.io/docs/creating_integration_manifest/
 
 ## Security
 
-- Never commit credentials or authentication tokens.
-- Never commit raw full-account GraphQL responses.
-- Use the fixture exporter and inspect every fixture before commit.
-- Treat account numbers, MALO/MELO values, meter numbers and device identifiers as private data.
 
 ## License
 

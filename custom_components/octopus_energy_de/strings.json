@@ -1,38 +1,39 @@
 {
+  "title": "Octopus Energy DE",
   "config": {
     "step": {
       "user": {
         "title": "Octopus Energy DE",
-        "description": "Sign in with your Octopus Energy Germany account.",
+        "description": "Connect your Octopus Energy Germany account.",
         "data": {
-          "email": "Email",
+          "email": "Email address",
           "password": "Password"
         }
       },
       "account": {
-        "title": "Choose account",
-        "description": "Select the Octopus account to add.",
+        "title": "Select account",
+        "description": "Select the Octopus Energy account to add.",
         "data": {
           "account_number": "Account"
         }
       },
       "reauth_confirm": {
         "title": "Reauthenticate Octopus Energy DE",
-        "description": "Your Octopus credentials need to be updated.",
+        "description": "Enter your current Octopus Energy Germany credentials.",
         "data": {
-          "email": "Email",
+          "email": "Email address",
           "password": "Password"
         }
       }
     },
     "error": {
-      "cannot_connect": "Could not connect to Octopus Energy Germany.",
-      "invalid_auth": "Invalid credentials.",
-      "no_accounts": "No Octopus accounts were returned."
+      "invalid_auth": "Authentication failed. Check your email address and password.",
+      "cannot_connect": "Unable to connect to Octopus Energy Germany.",
+      "unknown": "Unexpected error."
     },
     "abort": {
-      "already_configured": "This Octopus account is already configured.",
-      "reauth_success": "Reauthentication was successful."
+      "already_configured": "This Octopus Energy account is already configured.",
+      "reauth_successful": "Reauthentication was successful."
     }
   }
 }

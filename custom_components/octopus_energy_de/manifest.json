@@ -1,12 +1,14 @@
 {
   "domain": "octopus_energy_de",
   "name": "Octopus Energy DE",
-  "version": "0.4.1",
+  "version": "0.4.0",
   "config_flow": true,
+  "codeowners": [
+    "@thecem"
+  ],
   "documentation": "https://github.com/thecem/octopus_energy_de",
   "issue_tracker": "https://github.com/thecem/octopus_energy_de/issues",
-  "codeowners": ["@thecem"],
-  "iot_class": "cloud_polling",
   "integration_type": "hub",
+  "iot_class": "cloud_polling",
   "requirements": []
 }

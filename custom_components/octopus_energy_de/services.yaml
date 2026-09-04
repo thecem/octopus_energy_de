@@ -17,3 +17,36 @@ set_device_preferences:
       required: true
       selector:
         time:
+get_electricity_consumption:
+  name: Get electricity consumption
+  description: Fetch electricity consumption intervals for a specific historical day.
+  fields:
+    date:
+      required: true
+      selector:
+        date:
+    supply_point_id:
+      required: false
+      selector:
+        text:
+export_electricity_consumption_csv:
+  name: Export electricity consumption CSV
+  description: Export electricity consumption intervals for one supply and a selected period.
+  fields:
+    start_date:
+      required: true
+      selector:
+        date:
+    end_date:
+      required: true
+      selector:
+        date:
+    supply_point_id:
+      required: false
+      selector:
+        text:
+    directory:
+      required: false
+      default: octopus_energy_de_exports
+      selector:
+        text:

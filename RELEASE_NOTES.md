@@ -5,6 +5,9 @@
 - Smart Control switches that suspend or resume eligible SmartFlex devices.
 - Boost Charge switches that start or cancel a Boost session.
 - `octopus_energy_de.set_device_preferences` service with validated target state of charge and target time.
+- Independent polling intervals: 30 minutes for tariffs, 60 minutes for meters, and 3 minutes for SmartFlex.
+- `octopus_energy_de.get_electricity_consumption` service for on-demand historical interval data.
+- `octopus_energy_de.export_electricity_consumption_csv` service for CSV exports of up to 31 days, with a configurable directory below `config/www` and a download notification.
 
 ## Safety
 

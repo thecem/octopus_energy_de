@@ -11,7 +11,11 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api.client import OctopusEnergyDEClient
 from .const import CONF_ACCOUNT_NUMBER, DOMAIN, PLATFORMS
-from .coordinator import OctopusEnergyDECoordinator
+from .coordinator import (
+    OctopusEnergyDECoordinator,
+    OctopusEnergyDEMeterCoordinator,
+    OctopusEnergyDESmartFlexCoordinator,
+)
 from .services import async_register_services, async_unregister_services
 
 
@@ -19,6 +23,8 @@ from .services import async_register_services, async_unregister_services
 class OctopusEnergyDERuntimeData:
     client: OctopusEnergyDEClient
     coordinator: OctopusEnergyDECoordinator
+    meter_coordinator: OctopusEnergyDEMeterCoordinator
+    smartflex_coordinator: OctopusEnergyDESmartFlexCoordinator
 
 
 OctopusEnergyDEConfigEntry = ConfigEntry[OctopusEnergyDERuntimeData]
@@ -33,7 +39,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: OctopusEnergyDEConfigEnt
     coordinator = OctopusEnergyDECoordinator(
         hass, client, entry.data[CONF_ACCOUNT_NUMBER])
     await coordinator.async_config_entry_first_refresh()
-    entry.runtime_data = OctopusEnergyDERuntimeData(client, coordinator)
+    meter_coordinator = OctopusEnergyDEMeterCoordinator(
+        hass, client, entry.data[CONF_ACCOUNT_NUMBER], coordinator
+    )
+    smartflex_coordinator = OctopusEnergyDESmartFlexCoordinator(
+        hass, client, entry.data[CONF_ACCOUNT_NUMBER]
+    )
+    await meter_coordinator.async_config_entry_first_refresh()
+    await smartflex_coordinator.async_config_entry_first_refresh()
+    entry.runtime_data = OctopusEnergyDERuntimeData(
+        client, coordinator, meter_coordinator, smartflex_coordinator
+    )
     async_register_services(hass)
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True

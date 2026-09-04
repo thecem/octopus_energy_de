@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 import logging
-from datetime import date, timedelta
+from datetime import date
 from typing import Any
 
 import aiohttp
 
 from .auth import OctopusAuth
-from .exceptions import OctopusEnergyDEError
 from .graphql.queries import (
     ACCOUNT_DISCOVERY_QUERY,
     BOOST_CHARGE_MUTATION,
@@ -49,35 +48,24 @@ class OctopusEnergyDEClient:
             variables={"accountNumber": account_number},
             token=token,
         )
-        snapshot = map_account_snapshot(account_number, result)
+        return map_account_snapshot(account_number, result)
+
+    async def meter_snapshot(
+        self, account_number: str, supplies: tuple
+    ) -> AccountSnapshot:
+        token = await self.auth.ensure_token()
         readings: list[ElectricityMeterReading] = []
-        consumption: list[ElectricityConsumption] = []
-        smartflex = SmartFlexSnapshot()
-        for supply in snapshot.electricity:
+        for supply in supplies:
             for meter in supply.meters:
                 readings.extend(
                     await self.electricity_meter_readings(
                         account_number, meter.meter_id, token
                     )
                 )
-            if supply.property_id and not any(
-                item.property_id == supply.property_id for item in consumption
-            ):
-                consumption.append(
-                    await self.previous_day_electricity_consumption(
-                        account_number, supply.property_id, token
-                    )
-                )
-        try:
-            smartflex = await self.smartflex_snapshot(account_number, token)
-        except OctopusEnergyDEError as err:
-            _LOGGER.debug("SmartFlex data unavailable for account: %s", err)
         return AccountSnapshot(
-            account_number=snapshot.account_number,
-            electricity=snapshot.electricity,
+            account_number=account_number,
+            electricity=supplies,
             electricity_meter_readings=tuple(readings),
-            electricity_consumption=tuple(consumption),
-            smartflex=smartflex,
         )
 
     async def electricity_meter_readings(
@@ -90,10 +78,9 @@ class OctopusEnergyDEClient:
         )
         return map_electricity_meter_readings(meter_id, result)
 
-    async def previous_day_electricity_consumption(
-        self, account_number: str, property_id: str, token: str | None = None
+    async def electricity_consumption(
+        self, account_number: str, property_id: str, measurement_date: date, token: str | None = None
     ) -> ElectricityConsumption:
-        measurement_date = date.today() - timedelta(days=1)
         result = await self.transport.execute(
             ELECTRICITY_CONSUMPTION_QUERY,
             variables={

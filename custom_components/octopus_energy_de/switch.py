@@ -10,7 +10,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .api.models.smartflex import SmartFlexDevice
-from .coordinator import OctopusEnergyDECoordinator
+from .coordinator import OctopusEnergyDESmartFlexCoordinator
 
 
 async def async_setup_entry(
@@ -18,19 +18,19 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    coordinator: OctopusEnergyDECoordinator = entry.runtime_data.coordinator
+    coordinator: OctopusEnergyDESmartFlexCoordinator = entry.runtime_data.smartflex_coordinator
     switches: list[SwitchEntity] = []
-    for device in coordinator.data.smartflex.devices:
+    for device in coordinator.data.devices:
         if device.is_suspended is not None:
             switches.append(SmartControlSwitch(coordinator, device))
         switches.append(BoostChargeSwitch(coordinator, device))
     async_add_entities(switches)
 
 
-class SmartFlexControlSwitch(CoordinatorEntity[OctopusEnergyDECoordinator], SwitchEntity):
+class SmartFlexControlSwitch(CoordinatorEntity[OctopusEnergyDESmartFlexCoordinator], SwitchEntity):
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, device: SmartFlexDevice) -> None:
+    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
         super().__init__(coordinator)
         self._device_id = device.device_id
         self._account = coordinator.account_number
@@ -38,7 +38,7 @@ class SmartFlexControlSwitch(CoordinatorEntity[OctopusEnergyDECoordinator], Swit
     @property
     def _device(self) -> SmartFlexDevice | None:
         return next(
-            (device for device in self.coordinator.data.smartflex.devices if device.device_id == self._device_id),
+            (device for device in self.coordinator.data.devices if device.device_id == self._device_id),
             None,
         )
 
@@ -50,7 +50,7 @@ class SmartControlSwitch(SmartFlexControlSwitch):
     _attr_name = "Smart Control"
     _attr_icon = "mdi:car-connected"
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, device: SmartFlexDevice) -> None:
+    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_smart_control"
 
@@ -80,7 +80,7 @@ class BoostChargeSwitch(SmartFlexControlSwitch):
     _attr_name = "Boost Charge"
     _attr_icon = "mdi:lightning-bolt"
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, device: SmartFlexDevice) -> None:
+    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_boost_charge"
 

@@ -9,7 +9,9 @@ VERSION = "0.4.0"
 CONF_ACCOUNT_NUMBER = "account_number"
 
 GRAPHQL_ENDPOINT = "https://api.oeg-kraken.energy/v1/graphql/"
-DEFAULT_SCAN_INTERVAL = timedelta(minutes=5)
+BASE_SCAN_INTERVAL = timedelta(minutes=30)
+METER_SCAN_INTERVAL = timedelta(minutes=60)
+SMARTFLEX_SCAN_INTERVAL = timedelta(minutes=3)
 REQUEST_TIMEOUT = 30
 TOKEN_REFRESH_MARGIN_SECONDS = 300
 

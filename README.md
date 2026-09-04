@@ -53,6 +53,28 @@ Marketing product names are deliberately separated from technical tariff behavio
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) and [ROADMAP.md](ROADMAP.md).
 
+## Polling
+
+- Tariff and supply data: every 30 minutes.
+- Electricity meter readings: every 60 minutes.
+- SmartFlex device and dispatch data: every 3 minutes.
+- Historical consumption: only through `octopus_energy_de.get_electricity_consumption` for a requested date.
+
+## Consumption Export
+
+Export a selected period as CSV with `octopus_energy_de.export_electricity_consumption_csv`:
+
+```yaml
+start_date: "2026-09-01"
+end_date: "2026-09-03"
+# Optional: restrict to one supply point.
+# supply_point_id: "..."
+# Optional: subdirectory below config/www.
+# directory: "octopus_energy_de_exports"
+```
+
+The export is limited to 31 days, is written by default to `config/www/octopus_energy_de_exports/`, and creates a persistent notification with a download link.
+
 ## Parallel installation with `octopus_germany`
 
 The two integrations have different Home Assistant domains:

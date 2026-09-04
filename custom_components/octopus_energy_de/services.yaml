@@ -1,52 +1,79 @@
 set_device_preferences:
   name: Set device preferences
-  description: Set the target state of charge and target time for a SmartFlex device.
+  description: Set the SmartFlex target state of charge and target completion time for a device.
   fields:
     device_id:
+      name: Device ID
+      description: SmartFlex device identifier.
       required: true
       selector:
         text:
     target_percentage:
+      name: Target state of charge
+      description: Desired target state of charge in percent.
       required: true
       selector:
         number:
           min: 20
           max: 100
           step: 5
+          unit_of_measurement: "%"
+          mode: slider
     target_time:
+      name: Target time
+      description: Time by which the target state of charge should be reached.
       required: true
       selector:
         time:
-get_electricity_consumption:
-  name: Get electricity consumption
-  description: Fetch electricity consumption intervals for a specific historical day.
+
+get_consumption:
+  name: Get consumption
+  description: Retrieve historical electricity consumption stored by Octopus Energy.
   fields:
-    date:
+    account_number:
+      name: Account
+      description: Octopus Energy account number.
       required: true
-      selector:
-        date:
-    supply_point_id:
-      required: false
       selector:
         text:
-export_electricity_consumption_csv:
-  name: Export electricity consumption CSV
-  description: Export electricity consumption intervals for one supply and a selected period.
+    start:
+      name: Start
+      description: Start of the requested period.
+      required: true
+      selector:
+        datetime:
+    end:
+      name: End
+      description: End of the requested period.
+      required: true
+      selector:
+        datetime:
+
+export_consumption_csv:
+  name: Export consumption CSV
+  description: Export historical electricity consumption to a CSV file.
   fields:
-    start_date:
+    account_number:
+      name: Account
+      description: Octopus Energy account number.
       required: true
-      selector:
-        date:
-    end_date:
-      required: true
-      selector:
-        date:
-    supply_point_id:
-      required: false
       selector:
         text:
-    directory:
+    start:
+      name: Start
+      description: Start of the export period.
+      required: true
+      selector:
+        datetime:
+    end:
+      name: End
+      description: End of the export period.
+      required: true
+      selector:
+        datetime:
+    filename:
+      name: Filename
+      description: Optional output filename.
       required: false
-      default: octopus_energy_de_exports
       selector:
         text:

@@ -40,10 +40,8 @@ def map_smartflex_snapshot(response: dict[str, Any]) -> SmartFlexSnapshot:
                 provider=device.get("provider"),
                 state=status.get("currentState"),
                 is_suspended=status.get("isSuspended"),
-                state_of_charge=_decimal(
-                    (status.get("stateOfCharge") or {}).get("value")),
-                active_power_kw=_decimal(
-                    (status.get("activePower") or {}).get("value")),
+                state_of_charge=_decimal((status.get("stateOfCharge") or {}).get("value")),
+                active_power_kw=_decimal((status.get("activePower") or {}).get("value")),
                 battery_size_kwh=_decimal(vehicle.get("batterySize")),
             )
         )
@@ -56,16 +54,13 @@ def map_smartflex_snapshot(response: dict[str, Any]) -> SmartFlexSnapshot:
                         device_id=device_id,
                         start=start,
                         end=_datetime(node.get("end")),
-                        energy_kwh=_decimal(
-                            (node.get("energyAdded") or {}).get("value")),
-                        cost_eur=_decimal(
-                            (node.get("cost") or {}).get("amount")),
+                        energy_kwh=_decimal((node.get("energyAdded") or {}).get("value")),
+                        cost_eur=_decimal((node.get("cost") or {}).get("amount")),
                         session_type=node.get("type"),
                     )
                 )
     dispatches = tuple(
-        SmartFlexDispatch(start=start, end=end,
-                          energy_kwh=_decimal(item.get("deltaKwh")))
+        SmartFlexDispatch(start=start, end=end, energy_kwh=_decimal(item.get("deltaKwh")))
         for item in data.get("completedDispatches") or []
         if (start := _datetime(item.get("startDt") or item.get("start")))
         and (end := _datetime(item.get("endDt") or item.get("end")))

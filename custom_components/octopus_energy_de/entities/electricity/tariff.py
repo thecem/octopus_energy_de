@@ -23,7 +23,9 @@ class OctopusTariffEntity(CoordinatorEntity[OctopusEnergyDECoordinator], SensorE
 
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int
+    ) -> None:
         super().__init__(coordinator)
         self._supply_id = supply.supply_point_id
         self._index = index
@@ -32,7 +34,11 @@ class OctopusTariffEntity(CoordinatorEntity[OctopusEnergyDECoordinator], SensorE
     @property
     def _supply(self) -> ElectricitySupply | None:
         return next(
-            (supply for supply in self.coordinator.data.electricity if supply.supply_point_id == self._supply_id),
+            (
+                supply
+                for supply in self.coordinator.data.electricity
+                if supply.supply_point_id == self._supply_id
+            ),
             None,
         )
 
@@ -51,7 +57,9 @@ class CurrentRateSensor(OctopusTariffEntity):
     _attr_native_unit_of_measurement = RATE_UNIT
     _attr_icon = "mdi:currency-eur"
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int
+    ) -> None:
         super().__init__(coordinator, supply, index)
         self._attr_unique_id = f"{self._account}_{self._supply_id}_current_rate"
 
@@ -78,7 +86,9 @@ class NextRateSensor(OctopusTariffEntity):
     _attr_native_unit_of_measurement = RATE_UNIT
     _attr_icon = "mdi:clock-fast"
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int
+    ) -> None:
         super().__init__(coordinator, supply, index)
         self._attr_unique_id = f"{self._account}_{self._supply_id}_next_rate"
 
@@ -92,7 +102,9 @@ class TariffInfoSensor(OctopusTariffEntity):
     _attr_name = "Tariff"
     _attr_icon = "mdi:file-document-outline"
 
-    def __init__(self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDECoordinator, supply: ElectricitySupply, index: int
+    ) -> None:
         super().__init__(coordinator, supply, index)
         self._attr_unique_id = f"{self._account}_{self._supply_id}_tariff"
 

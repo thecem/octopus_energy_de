@@ -35,7 +35,10 @@ class DynamicTariffHandler:
 class TimeOfUseTariffHandler:
     def current_rate(self, tariff: Tariff, now: datetime) -> Decimal | None:
         local_time = now.timetz().replace(tzinfo=None)
-        return next((r.value_eur_per_kwh for r in tariff.tou_rates if r.contains_local_time(local_time)), None)
+        return next(
+            (r.value_eur_per_kwh for r in tariff.tou_rates if r.contains_local_time(local_time)),
+            None,
+        )
 
     def next_rate(self, tariff: Tariff, now: datetime) -> Decimal | None:
         if not tariff.tou_rates:

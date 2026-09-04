@@ -32,5 +32,4 @@ def test_smartflex_control_mutations_use_explicit_actions():
     asyncio.run(client.set_boost_charge("device", enabled=True))
 
     assert transport.calls[0][1] == {"deviceId": "device", "action": "SUSPEND"}
-    assert transport.calls[1][1] == {
-        "input": {"deviceId": "device", "action": "BOOST"}}
+    assert transport.calls[1][1] == {"input": {"deviceId": "device", "action": "BOOST"}}

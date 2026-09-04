@@ -13,7 +13,11 @@ class ConsumptionOperations:
     """Operations for requested historical consumption periods."""
 
     async def electricity_consumption(
-        self, account_number: str, property_id: str, measurement_date: date, token: str | None = None
+        self,
+        account_number: str,
+        property_id: str,
+        measurement_date: date,
+        token: str | None = None,
     ) -> ElectricityConsumption:
         result = await self.transport.execute(
             ELECTRICITY_CONSUMPTION_QUERY,

@@ -30,7 +30,9 @@ def matching_supplies(
         if not runtime:
             continue
         for supply in runtime.coordinator.data.electricity:
-            if supply.property_id and (supply_point_id is None or supply.supply_point_id == supply_point_id):
+            if supply.property_id and (
+                supply_point_id is None or supply.supply_point_id == supply_point_id
+            ):
                 matches.append((runtime, supply))
     return matches
 

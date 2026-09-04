@@ -28,8 +28,8 @@ def test_device_preferences_use_all_days_and_normalized_time():
 
     asyncio.run(client.set_device_preferences("device", 80, "06:30"))
 
-    assert "deviceId: \"device\"" in transport.query
-    assert transport.query.count("time: \"06:30\"") == 7
+    assert 'deviceId: "device"' in transport.query
+    assert transport.query.count('time: "06:30"') == 7
 
 
 def test_target_time_is_limited_to_supported_window():

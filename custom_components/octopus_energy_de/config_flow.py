@@ -25,14 +25,15 @@ class OctopusEnergyDEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
         if user_input is not None:
             client = OctopusEnergyDEClient(
-                async_get_clientsession(
-                    self.hass), user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
+                async_get_clientsession(self.hass),
+                user_input[CONF_EMAIL],
+                user_input[CONF_PASSWORD],
             )
             try:
                 self._accounts = await client.accounts()
             except AuthenticationError:
                 errors["base"] = "invalid_auth"
-            except (CannotConnectError, GraphQLError):
+            except CannotConnectError, GraphQLError:
                 errors["base"] = "cannot_connect"
             else:
                 if not self._accounts:
@@ -60,9 +61,7 @@ class OctopusEnergyDEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return await self._create_for_account(user_input[CONF_ACCOUNT_NUMBER])
         return self.async_show_form(
             step_id="account",
-            data_schema=vol.Schema(
-                {vol.Required(CONF_ACCOUNT_NUMBER): vol.In(account_numbers)}
-            ),
+            data_schema=vol.Schema({vol.Required(CONF_ACCOUNT_NUMBER): vol.In(account_numbers)}),
         )
 
     async def async_step_reauth(self, entry_data: dict[str, Any]):
@@ -83,7 +82,7 @@ class OctopusEnergyDEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 await client.accounts()
             except AuthenticationError:
                 errors["base"] = "invalid_auth"
-            except (CannotConnectError, GraphQLError):
+            except CannotConnectError, GraphQLError:
                 errors["base"] = "cannot_connect"
             else:
                 self.hass.config_entries.async_update_entry(

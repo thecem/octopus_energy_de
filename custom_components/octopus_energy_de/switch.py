@@ -30,7 +30,9 @@ async def async_setup_entry(
 class SmartFlexControlSwitch(CoordinatorEntity[OctopusEnergyDESmartFlexCoordinator], SwitchEntity):
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator)
         self._device_id = device.device_id
         self._account = coordinator.account_number
@@ -38,7 +40,11 @@ class SmartFlexControlSwitch(CoordinatorEntity[OctopusEnergyDESmartFlexCoordinat
     @property
     def _device(self) -> SmartFlexDevice | None:
         return next(
-            (device for device in self.coordinator.data.devices if device.device_id == self._device_id),
+            (
+                device
+                for device in self.coordinator.data.devices
+                if device.device_id == self._device_id
+            ),
             None,
         )
 
@@ -50,7 +56,9 @@ class SmartControlSwitch(SmartFlexControlSwitch):
     _attr_name = "Smart Control"
     _attr_icon = "mdi:car-connected"
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_smart_control"
 
@@ -64,23 +72,23 @@ class SmartControlSwitch(SmartFlexControlSwitch):
             await self.coordinator.client.set_smart_control(self._device_id, enabled=True)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to enable Smart Control: {err}") from err
+            raise HomeAssistantError(f"Unable to enable Smart Control: {err}") from err
 
     async def async_turn_off(self, **kwargs: object) -> None:
         try:
             await self.coordinator.client.set_smart_control(self._device_id, enabled=False)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to disable Smart Control: {err}") from err
+            raise HomeAssistantError(f"Unable to disable Smart Control: {err}") from err
 
 
 class BoostChargeSwitch(SmartFlexControlSwitch):
     _attr_name = "Boost Charge"
     _attr_icon = "mdi:lightning-bolt"
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_boost_charge"
 
@@ -94,13 +102,11 @@ class BoostChargeSwitch(SmartFlexControlSwitch):
             await self.coordinator.client.set_boost_charge(self._device_id, enabled=True)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to enable Boost Charge: {err}") from err
+            raise HomeAssistantError(f"Unable to enable Boost Charge: {err}") from err
 
     async def async_turn_off(self, **kwargs: object) -> None:
         try:
             await self.coordinator.client.set_boost_charge(self._device_id, enabled=False)
             await self._refresh_after_change()
         except Exception as err:
-            raise HomeAssistantError(
-                f"Unable to disable Boost Charge: {err}") from err
+            raise HomeAssistantError(f"Unable to disable Boost Charge: {err}") from err

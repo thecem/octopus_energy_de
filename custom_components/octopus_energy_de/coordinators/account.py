@@ -16,7 +16,9 @@ from ..const import BASE_SCAN_INTERVAL, DOMAIN
 class OctopusEnergyDECoordinator(DataUpdateCoordinator[AccountSnapshot]):
     """Coordinate infrequently changing account and tariff data."""
 
-    def __init__(self, hass: HomeAssistant, client: OctopusEnergyDEClient, account_number: str) -> None:
+    def __init__(
+        self, hass: HomeAssistant, client: OctopusEnergyDEClient, account_number: str
+    ) -> None:
         super().__init__(
             hass,
             logger=logging.getLogger(__name__),

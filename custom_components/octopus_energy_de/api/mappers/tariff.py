@@ -38,7 +38,11 @@ def _select_forecast_price(info: dict[str, Any]) -> tuple[Decimal | None, str | 
     rates = info.get("rates") or []
     if rates:
         value = rates[0].get("latestGrossUnitRateCentsPerKwh")
-        return (_cents_to_eur(value), rates[0].get("timeslotName")) if value is not None else (None, None)
+        return (
+            (_cents_to_eur(value), rates[0].get("timeslotName"))
+            if value is not None
+            else (None, None)
+        )
     return None, None
 
 
@@ -54,7 +58,9 @@ def map_tariff(agreement: dict[str, Any]) -> Tariff:
         has_forecast=bool(forecast),
     )
     tariff_type = TariffDetector.detect(descriptor)
-    family = detect_family(product.get("code") or "", product.get("fullName"), product.get("description"))
+    family = detect_family(
+        product.get("code") or "", product.get("fullName"), product.get("description")
+    )
     if tariff_type == TariffType.FIXED and family == TariffFamily.UNKNOWN:
         family = TariffFamily.GENERIC_FIXED
 

@@ -23,8 +23,15 @@ def _active_agreement(agreements: list[dict[str, Any]], now: datetime) -> dict[s
         if (start is None or start <= now) and (end is None or now < end):
             active.append(agreement)
     if active:
-        return max(active, key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=UTC))
-    return max(agreements, key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=UTC), default=None)
+        return max(
+            active,
+            key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=UTC),
+        )
+    return max(
+        agreements,
+        key=lambda item: _parse(item.get("validFrom")) or datetime.min.replace(tzinfo=UTC),
+        default=None,
+    )
 
 
 def map_account_snapshot(account_number: str, response: dict[str, Any]) -> AccountSnapshot:
@@ -46,8 +53,9 @@ def map_account_snapshot(account_number: str, response: dict[str, Any]) -> Accou
                 )
                 supplies.append(
                     ElectricitySupply(
-                        supply_point_id=malo.get("maloNumber") or property_data.get(
-                            "id") or "electricity",
+                        supply_point_id=malo.get("maloNumber")
+                        or property_data.get("id")
+                        or "electricity",
                         tariff=map_tariff(agreement),
                         meters=meters,
                         property_id=property_data.get("id"),

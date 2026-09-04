@@ -2,11 +2,9 @@ import importlib.util
 import json
 from pathlib import Path
 
-EXPORTER_PATH = Path(__file__).parents[1] / \
-    "scripts" / "export_tariff_fixture.py"
+EXPORTER_PATH = Path(__file__).parents[1] / "scripts" / "export_tariff_fixture.py"
 TARIFF_FIXTURE_PATH = Path(__file__).parent / "fixtures" / "mein_tarif.json"
-SPEC = importlib.util.spec_from_file_location(
-    "export_tariff_fixture", EXPORTER_PATH)
+SPEC = importlib.util.spec_from_file_location("export_tariff_fixture", EXPORTER_PATH)
 assert SPEC and SPEC.loader
 exporter = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(exporter)
@@ -50,7 +48,6 @@ def test_real_measurement_fixture_contains_full_day_of_quarter_hour_intervals():
 
     assert len(intervals) == 96
     assert {
-        interval["end_offset_seconds"] - interval["start_offset_seconds"]
-        for interval in intervals
+        interval["end_offset_seconds"] - interval["start_offset_seconds"] for interval in intervals
     } == {900}
     assert {interval["unit"] for interval in intervals} == {"kwh"}

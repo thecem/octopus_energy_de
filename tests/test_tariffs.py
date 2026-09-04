@@ -23,8 +23,7 @@ def test_fixed_mapping_and_rate():
     }
     tariff = map_tariff(agreement)
     assert tariff.tariff_type is TariffType.FIXED
-    assert TariffService.current_rate(
-        tariff, datetime.now(UTC)) == Decimal("0.305")
+    assert TariffService.current_rate(tariff, datetime.now(UTC)) == Decimal("0.305")
 
 
 def test_dynamic_interval_length_is_data_driven():
@@ -73,16 +72,14 @@ def test_go_and_heat_are_both_time_of_use():
                         "latestGrossUnitRateCentsPerKwh": 20,
                         "timeslotName": "LOW",
                         "timeslotActivationRules": [
-                            {"activeFromTime": "00:00:00",
-                                "activeToTime": "05:00:00"}
+                            {"activeFromTime": "00:00:00", "activeToTime": "05:00:00"}
                         ],
                     },
                     {
                         "latestGrossUnitRateCentsPerKwh": 30,
                         "timeslotName": "STANDARD",
                         "timeslotActivationRules": [
-                            {"activeFromTime": "05:00:00",
-                                "activeToTime": "00:00:00"}
+                            {"activeFromTime": "05:00:00", "activeToTime": "00:00:00"}
                         ],
                     },
                 ],
@@ -96,8 +93,7 @@ def test_go_and_heat_are_both_time_of_use():
 
 def test_real_intelligent_go_fixture_distinguishes_fixed_and_tou_tariffs():
     agreements = json.loads(FIXTURE_PATH.read_text())["agreements"]
-    tariffs = {agreement["product"]["code"]: map_tariff(
-        agreement) for agreement in agreements}
+    tariffs = {agreement["product"]["code"]: map_tariff(agreement) for agreement in agreements}
 
     go_light = tariffs["DEU-ELECTRICITY-IO-GO-LIGHT-24"]
     assert go_light.tariff_type is TariffType.FIXED

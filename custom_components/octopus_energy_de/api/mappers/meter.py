@@ -12,8 +12,7 @@ from ..models.tariff import ElectricityMeterReading
 def map_electricity_meter_readings(
     meter_id: str, response: dict[str, Any]
 ) -> tuple[ElectricityMeterReading, ...]:
-    edges = ((response.get("data") or {}).get(
-        "electricityMeterReadings") or {}).get("edges") or []
+    edges = ((response.get("data") or {}).get("electricityMeterReadings") or {}).get("edges") or []
     readings_by_register: dict[str, ElectricityMeterReading] = {}
     for edge in edges:
         node = edge.get("node") or {}
@@ -24,8 +23,7 @@ def map_electricity_meter_readings(
         reading = ElectricityMeterReading(
             meter_id=meter_id,
             value=Decimal(str(node["value"])),
-            read_at=datetime.fromisoformat(
-                read_at.replace("Z", "+00:00")) if read_at else None,
+            read_at=datetime.fromisoformat(read_at.replace("Z", "+00:00")) if read_at else None,
             register_obis_code=register_obis_code,
             register_type=node.get("registerType"),
         )
@@ -42,4 +40,8 @@ def map_latest_electricity_meter_reading(
 ) -> ElectricityMeterReading | None:
     """Return the most recent meter reading across all available registers."""
     readings = map_electricity_meter_readings(meter_id, response)
-    return max(readings, key=lambda reading: reading.read_at or datetime.min.replace(tzinfo=UTC), default=None)
+    return max(
+        readings,
+        key=lambda reading: reading.read_at or datetime.min.replace(tzinfo=UTC),
+        default=None,
+    )

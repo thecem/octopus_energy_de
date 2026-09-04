@@ -17,7 +17,9 @@ class MeterOperations:
         readings: list[ElectricityMeterReading] = []
         for supply in supplies:
             for meter in supply.meters:
-                readings.extend(await self.electricity_meter_readings(account_number, meter.meter_id, token))
+                readings.extend(
+                    await self.electricity_meter_readings(account_number, meter.meter_id, token)
+                )
         return AccountSnapshot(
             account_number=account_number,
             electricity=supplies,

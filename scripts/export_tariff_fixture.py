@@ -46,9 +46,9 @@ def minimize(response: dict) -> dict:
 
 
 def minimize_measurements(response: dict) -> list[dict]:
-    measurements = (
-        ((response.get("data") or {}).get("account") or {}).get("property") or {}
-    ).get("measurements") or {}
+    measurements = (((response.get("data") or {}).get("account") or {}).get("property") or {}).get(
+        "measurements"
+    ) or {}
     raw_intervals: list[tuple[datetime, datetime, str | None]] = []
     for edge in measurements.get("edges") or []:
         node = edge.get("node") or {}
@@ -80,8 +80,7 @@ def minimize_measurements(response: dict) -> list[dict]:
 async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("output", type=Path)
-    parser.add_argument(
-        "--account", help="Account number; if omitted, the first account is used")
+    parser.add_argument("--account", help="Account number; if omitted, the first account is used")
     parser.add_argument(
         "--measurements-date",
         type=date.fromisoformat,
@@ -93,8 +92,7 @@ async def main() -> None:
     email = os.environ.get("OCTOPUS_EMAIL")
     password = os.environ.get("OCTOPUS_PASSWORD")
     if not email or not password:
-        raise SystemExit(
-            "Set OCTOPUS_EMAIL and OCTOPUS_PASSWORD in the environment")
+        raise SystemExit("Set OCTOPUS_EMAIL and OCTOPUS_PASSWORD in the environment")
 
     async with aiohttp.ClientSession() as session:
         client = OctopusEnergyDEClient(session, email, password)
@@ -109,8 +107,7 @@ async def main() -> None:
             token=token,
         )
 
-        properties = ((raw.get("data") or {}).get("account")
-                      or {}).get("allProperties") or []
+        properties = ((raw.get("data") or {}).get("account") or {}).get("allProperties") or []
         measurement_intervals: list[dict] = []
         for property_data in properties:
             property_id = property_data.get("id")
@@ -130,10 +127,8 @@ async def main() -> None:
     fixture = minimize(raw)
     fixture["electricity_measurement_intervals"] = measurement_intervals
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(
-        fixture, indent=2, ensure_ascii=False) + "\n")
-    print(
-        f"Wrote {len(fixture['agreements'])} anonymized agreement(s) to {args.output}")
+    args.output.write_text(json.dumps(fixture, indent=2, ensure_ascii=False) + "\n")
+    print(f"Wrote {len(fixture['agreements'])} anonymized agreement(s) to {args.output}")
 
 
 if __name__ == "__main__":

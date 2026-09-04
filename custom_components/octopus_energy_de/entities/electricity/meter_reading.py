@@ -39,7 +39,9 @@ class LatestElectricityMeterReadingSensor(
         self._account = coordinator.account_number
         self._register_obis_code = register_obis_code
         self._attr_name = f"Meter reading {register_obis_code}"
-        self._attr_unique_id = f"{self._account}_{meter.meter_id}_{register_obis_code}_meter_reading"
+        self._attr_unique_id = (
+            f"{self._account}_{meter.meter_id}_{register_obis_code}_meter_reading"
+        )
 
     @property
     def _reading(self) -> ElectricityMeterReading | None:

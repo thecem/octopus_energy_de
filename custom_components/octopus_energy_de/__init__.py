@@ -36,8 +36,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: OctopusEnergyDEConfigEnt
         entry.data[CONF_EMAIL],
         entry.data[CONF_PASSWORD],
     )
-    coordinator = OctopusEnergyDECoordinator(
-        hass, client, entry.data[CONF_ACCOUNT_NUMBER])
+    coordinator = OctopusEnergyDECoordinator(hass, client, entry.data[CONF_ACCOUNT_NUMBER])
     await coordinator.async_config_entry_first_refresh()
     meter_coordinator = OctopusEnergyDEMeterCoordinator(
         hass, client, entry.data[CONF_ACCOUNT_NUMBER], coordinator

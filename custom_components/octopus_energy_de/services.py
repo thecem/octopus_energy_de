@@ -46,5 +46,4 @@ def async_register_services(hass: HomeAssistant) -> None:
 def async_unregister_services(hass: HomeAssistant) -> None:
     hass.services.async_remove(DOMAIN, SERVICE_SET_DEVICE_PREFERENCES)
     hass.services.async_remove(DOMAIN, SERVICE_GET_ELECTRICITY_CONSUMPTION)
-    hass.services.async_remove(
-        DOMAIN, SERVICE_EXPORT_ELECTRICITY_CONSUMPTION_CSV)
+    hass.services.async_remove(DOMAIN, SERVICE_EXPORT_ELECTRICITY_CONSUMPTION_CSV)

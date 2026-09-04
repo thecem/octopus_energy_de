@@ -10,7 +10,9 @@ from .models.smartflex import SmartFlexSnapshot
 class SmartFlexOperations:
     """Read and explicitly control supported SmartFlex features."""
 
-    async def smartflex_snapshot(self, account_number: str, token: str | None = None) -> SmartFlexSnapshot:
+    async def smartflex_snapshot(
+        self, account_number: str, token: str | None = None
+    ) -> SmartFlexSnapshot:
         result = await self.transport.execute(
             SMARTFLEX_QUERY,
             variables={"accountNumber": account_number},
@@ -21,16 +23,16 @@ class SmartFlexOperations:
     async def set_smart_control(self, device_id: str, enabled: bool) -> None:
         await self.transport.execute(
             SMART_CONTROL_MUTATION,
-            variables={"deviceId": device_id,
-                       "action": "UNSUSPEND" if enabled else "SUSPEND"},
+            variables={"deviceId": device_id, "action": "UNSUSPEND" if enabled else "SUSPEND"},
             token=await self.auth.ensure_token(),
         )
 
     async def set_boost_charge(self, device_id: str, enabled: bool) -> None:
         await self.transport.execute(
             BOOST_CHARGE_MUTATION,
-            variables={"input": {"deviceId": device_id,
-                                 "action": "BOOST" if enabled else "CANCEL"}},
+            variables={
+                "input": {"deviceId": device_id, "action": "BOOST" if enabled else "CANCEL"}
+            },
             token=await self.auth.ensure_token(),
         )
 
@@ -39,7 +41,15 @@ class SmartFlexOperations:
     ) -> None:
         schedules = "\n".join(
             f'{{ dayOfWeek: {day}, time: "{target_time}", max: {target_percentage} }}'
-            for day in ("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY")
+            for day in (
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY",
+            )
         )
         mutation = f"""
         mutation SetDevicePreferences {{

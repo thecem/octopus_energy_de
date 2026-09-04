@@ -7,8 +7,7 @@ def test_smartflex_mapping_includes_device_dispatch_and_charging_session():
     response = {
         "data": {
             "completedDispatches": [
-                {"start": "2026-09-04T00:00:00Z",
-                    "end": "2026-09-04T01:00:00Z", "deltaKwh": "7.2"}
+                {"start": "2026-09-04T00:00:00Z", "end": "2026-09-04T01:00:00Z", "deltaKwh": "7.2"}
             ],
             "devices": [
                 {
@@ -18,10 +17,19 @@ def test_smartflex_mapping_includes_device_dispatch_and_charging_session():
                     "provider": "Provider",
                     "status": {"currentState": "CHARGING", "stateOfCharge": {"value": "72"}},
                     "vehicleVariant": {"batterySize": "60"},
-                    "chargingSessions": {"edges": [{"node": {
-                        "start": "2026-09-04T00:00:00Z", "end": "2026-09-04T01:00:00Z",
-                        "energyAdded": {"value": "7.2"}, "cost": {"amount": "0.9"}, "type": "SMART"
-                    }}]},
+                    "chargingSessions": {
+                        "edges": [
+                            {
+                                "node": {
+                                    "start": "2026-09-04T00:00:00Z",
+                                    "end": "2026-09-04T01:00:00Z",
+                                    "energyAdded": {"value": "7.2"},
+                                    "cost": {"amount": "0.9"},
+                                    "type": "SMART",
+                                }
+                            }
+                        ]
+                    },
                 }
             ],
         }

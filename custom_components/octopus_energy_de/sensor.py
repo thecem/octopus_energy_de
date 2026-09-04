@@ -59,8 +59,7 @@ async def async_setup_entry(
         if device.active_power_kw is not None
     )
     if smartflex.dispatches:
-        entities.append(SmartFlexDispatchesSensor(
-            runtime.smartflex_coordinator))
+        entities.append(SmartFlexDispatchesSensor(runtime.smartflex_coordinator))
     entities.extend(
         SmartFlexChargingSessionsSensor(runtime.smartflex_coordinator, device)
         for device in smartflex.devices

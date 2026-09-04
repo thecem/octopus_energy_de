@@ -7,7 +7,9 @@ import re
 from .types import TariffFamily
 
 
-def detect_family(code: str, name: str | None = None, description: str | None = None) -> TariffFamily:
+def detect_family(
+    code: str, name: str | None = None, description: str | None = None
+) -> TariffFamily:
     value = " ".join(x or "" for x in (code, name, description)).lower()
     normalized = re.sub(r"[^a-z0-9]+", " ", value)
     if "intelligent" in normalized and re.search(r"\bgo\b", normalized):

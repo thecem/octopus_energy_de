@@ -17,7 +17,9 @@ from ..coordinators.smartflex import OctopusEnergyDESmartFlexCoordinator
 class SmartFlexDeviceEntity(CoordinatorEntity[OctopusEnergyDESmartFlexCoordinator], SensorEntity):
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator)
         self._device_id = device.device_id
         self._account = coordinator.account_number
@@ -25,7 +27,11 @@ class SmartFlexDeviceEntity(CoordinatorEntity[OctopusEnergyDESmartFlexCoordinato
     @property
     def _device(self) -> SmartFlexDevice | None:
         return next(
-            (device for device in self.coordinator.data.devices if device.device_id == self._device_id),
+            (
+                device
+                for device in self.coordinator.data.devices
+                if device.device_id == self._device_id
+            ),
             None,
         )
 
@@ -44,7 +50,9 @@ class SmartFlexDeviceStateSensor(SmartFlexDeviceEntity):
     _attr_name = "SmartFlex state"
     _attr_icon = "mdi:ev-station"
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_smartflex_state"
 
@@ -67,7 +75,9 @@ class SmartFlexDeviceSocSensor(SmartFlexDeviceEntity):
     _attr_native_unit_of_measurement = PERCENTAGE
     _attr_icon = "mdi:battery"
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_state_of_charge"
 
@@ -83,7 +93,9 @@ class SmartFlexDevicePowerSensor(SmartFlexDeviceEntity):
     _attr_native_unit_of_measurement = UnitOfPower.KILO_WATT
     _attr_icon = "mdi:lightning-bolt"
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_charging_power"
 
@@ -93,7 +105,9 @@ class SmartFlexDevicePowerSensor(SmartFlexDeviceEntity):
         return device.active_power_kw if device else None
 
 
-class SmartFlexDispatchesSensor(CoordinatorEntity[OctopusEnergyDESmartFlexCoordinator], SensorEntity):
+class SmartFlexDispatchesSensor(
+    CoordinatorEntity[OctopusEnergyDESmartFlexCoordinator], SensorEntity
+):
     _attr_name = "SmartFlex dispatches"
     _attr_icon = "mdi:calendar-clock"
     _attr_has_entity_name = True
@@ -114,7 +128,9 @@ class SmartFlexDispatchesSensor(CoordinatorEntity[OctopusEnergyDESmartFlexCoordi
                 {
                     "start": dispatch.start.isoformat(),
                     "end": dispatch.end.isoformat(),
-                    "energy_kwh": str(dispatch.energy_kwh) if dispatch.energy_kwh is not None else None,
+                    "energy_kwh": str(dispatch.energy_kwh)
+                    if dispatch.energy_kwh is not None
+                    else None,
                 }
                 for dispatch in self.coordinator.data.dispatches
             ]
@@ -125,13 +141,19 @@ class SmartFlexChargingSessionsSensor(SmartFlexDeviceEntity):
     _attr_name = "SmartFlex charging sessions"
     _attr_icon = "mdi:ev-station"
 
-    def __init__(self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice) -> None:
+    def __init__(
+        self, coordinator: OctopusEnergyDESmartFlexCoordinator, device: SmartFlexDevice
+    ) -> None:
         super().__init__(coordinator, device)
         self._attr_unique_id = f"{self._account}_{device.device_id}_smartflex_charging_sessions"
 
     @property
     def _sessions(self):
-        return tuple(session for session in self.coordinator.data.charging_sessions if session.device_id == self._device_id)
+        return tuple(
+            session
+            for session in self.coordinator.data.charging_sessions
+            if session.device_id == self._device_id
+        )
 
     @property
     def native_value(self) -> int:
@@ -144,7 +166,9 @@ class SmartFlexChargingSessionsSensor(SmartFlexDeviceEntity):
                 {
                     "start": session.start.isoformat(),
                     "end": session.end.isoformat() if session.end else None,
-                    "energy_kwh": str(session.energy_kwh) if session.energy_kwh is not None else None,
+                    "energy_kwh": str(session.energy_kwh)
+                    if session.energy_kwh is not None
+                    else None,
                     "cost_eur": str(session.cost_eur) if session.cost_eur is not None else None,
                     "type": session.session_type,
                 }

@@ -77,8 +77,6 @@ class ElectricitySupply:
 class AccountSnapshot:
     account_number: str
     electricity: tuple[ElectricitySupply, ...]
-    electricity_meter_readings: tuple[ElectricityMeterReading, ...] = field(
-        default_factory=tuple)
-    electricity_consumption: tuple[ElectricityConsumption, ...] = field(
-        default_factory=tuple)
+    electricity_meter_readings: tuple[ElectricityMeterReading, ...] = field(default_factory=tuple)
+    electricity_consumption: tuple[ElectricityConsumption, ...] = field(default_factory=tuple)
     smartflex: SmartFlexSnapshot = field(default_factory=SmartFlexSnapshot)

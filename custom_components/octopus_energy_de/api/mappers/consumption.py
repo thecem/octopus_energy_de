@@ -12,13 +12,12 @@ from ..models.tariff import ElectricityConsumption, ElectricityConsumptionInterv
 def map_electricity_consumption(
     property_id: str, measurement_date: date, response: dict[str, Any]
 ) -> ElectricityConsumption:
-    measurements = (
-        ((response.get("data") or {}).get("account") or {}).get("property") or {}
-    ).get("measurements") or {}
+    measurements = (((response.get("data") or {}).get("account") or {}).get("property") or {}).get(
+        "measurements"
+    ) or {}
     intervals = tuple(
         ElectricityConsumptionInterval(
-            start=datetime.fromisoformat(
-                node["startAt"].replace("Z", "+00:00")),
+            start=datetime.fromisoformat(node["startAt"].replace("Z", "+00:00")),
             end=datetime.fromisoformat(node["endAt"].replace("Z", "+00:00")),
             value=Decimal(str(node["value"])),
             unit=node["unit"],

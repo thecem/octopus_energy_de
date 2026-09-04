@@ -22,8 +22,7 @@ def test_account_snapshot_maps_electricity_meters():
                             {
                                 "maloNumber": "malo-id",
                                 "meters": [
-                                    {"id": "meter-id", "number": "123456",
-                                        "meterType": "SMART"}
+                                    {"id": "meter-id", "number": "123456", "meterType": "SMART"}
                                 ],
                                 "agreements": [
                                     {
@@ -143,12 +142,10 @@ def test_consumption_mapping_preserves_each_api_interval():
         }
     }
 
-    consumption = map_electricity_consumption(
-        "property-id", date(2026, 9, 3), response)
+    consumption = map_electricity_consumption("property-id", date(2026, 9, 3), response)
 
     assert [interval.end - interval.start for interval in consumption.intervals] == [
         timedelta(minutes=15),
         timedelta(minutes=30),
     ]
-    assert [str(interval.value)
-            for interval in consumption.intervals] == ["0.42", "0.84"]
+    assert [str(interval.value) for interval in consumption.intervals] == ["0.42", "0.84"]

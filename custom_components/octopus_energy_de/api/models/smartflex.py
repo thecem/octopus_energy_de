@@ -49,5 +49,4 @@ class SmartFlexSnapshot:
 
     devices: tuple[SmartFlexDevice, ...] = field(default_factory=tuple)
     dispatches: tuple[SmartFlexDispatch, ...] = field(default_factory=tuple)
-    charging_sessions: tuple[SmartFlexChargingSession, ...] = field(
-        default_factory=tuple)
+    charging_sessions: tuple[SmartFlexChargingSession, ...] = field(default_factory=tuple)

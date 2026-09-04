@@ -94,12 +94,7 @@ def largest_connected_component_bbox(
                     (cx, cy - 1),
                     (cx, cy + 1),
                 ):
-                    if (
-                        0 <= nx < w
-                        and 0 <= ny < h
-                        and mask[ny][nx]
-                        and not visited[idx(nx, ny)]
-                    ):
+                    if 0 <= nx < w and 0 <= ny < h and mask[ny][nx] and not visited[idx(nx, ny)]:
                         visited[idx(nx, ny)] = 1
                         queue.append((nx, ny))
 

@@ -48,7 +48,9 @@ class OctopusAuth:
                 raise AuthenticationError("Kraken did not return an authentication token")
             self._token = token
             payload = auth.get("payload") or {}
-            self._expires_at = float(payload.get("exp") or self._decode_exp(token) or (time.time() + 3600))
+            self._expires_at = float(
+                payload.get("exp") or self._decode_exp(token) or (time.time() + 3600)
+            )
             return token
 
     @staticmethod
@@ -59,5 +61,5 @@ class OctopusAuth:
             part += "=" * (-len(part) % 4)
             payload: dict[str, Any] = json.loads(base64.urlsafe_b64decode(part).decode())
             return float(payload["exp"]) if "exp" in payload else None
-        except (IndexError, ValueError, KeyError, json.JSONDecodeError):
+        except IndexError, ValueError, KeyError, json.JSONDecodeError:
             return None

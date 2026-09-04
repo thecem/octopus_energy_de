@@ -44,8 +44,10 @@ async def async_setup_entry(
         )
 
     smartflex = runtime.smartflex_coordinator.data
-    entities.extend(SmartFlexDeviceStateSensor(
-        runtime.smartflex_coordinator, device) for device in smartflex.devices)
+    entities.extend(
+        SmartFlexDeviceStateSensor(runtime.smartflex_coordinator, device)
+        for device in smartflex.devices
+    )
     entities.extend(
         SmartFlexDeviceSocSensor(runtime.smartflex_coordinator, device)
         for device in smartflex.devices

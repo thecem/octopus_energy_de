@@ -4,22 +4,25 @@
 
 ```text
 Home Assistant
-      sensor.py / switch.py / services.py
+  sensor.py / switch.py / services.py (thin platform registration)
       |
       v
-coordinator.py
+entities/ and actions/
       |
       v
-TariffService ---------------- future Capability services
+coordinators/
       |                              |
       v                              v
-tariffs/                         capabilities/
+tariffs/                         SmartFlex operations
       ^                              ^
       |                              |
 normalized models <------------- mappers
       ^                              ^
       |                              |
-api/client.py -> api/graphql -> Kraken GraphQL
+api/account.py / meters.py / consumption.py / smartflex.py
+      |
+      v
+api/client.py (stable facade) -> api/graphql/{account,meters,consumption,smartflex}.py -> Kraken GraphQL
 ```
 
 ## Invariants
@@ -43,6 +46,14 @@ Future SmartFlex, vehicle, battery and heat-pump features belong here. `Intellig
 ### Entity layer
 
 Should remain thin: read coordinator models and expose Home Assistant state/attributes.
+
+### Actions layer
+
+Service behavior is separated by use case: SmartFlex preferences, historical consumption, and CSV export. `services.py` registers these actions without embedding their business logic.
+
+### Coordinator layer
+
+Account/tariff, meter, and SmartFlex updates are independent coordinators with different polling intervals. `coordinator.py` retains compatibility imports only.
 
 ## Polling
 

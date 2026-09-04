@@ -1,6 +1,12 @@
 import asyncio
+from types import SimpleNamespace
 
 from custom_components.octopus_energy_de.api.client import OctopusEnergyDEClient
+from custom_components.octopus_energy_de.api.models.smartflex import (
+    SmartFlexDevice,
+    SmartFlexSnapshot,
+)
+from custom_components.octopus_energy_de.switch import BoostChargeSwitch, SmartControlSwitch
 
 
 class _Auth:
@@ -32,4 +38,20 @@ def test_smartflex_control_mutations_use_explicit_actions():
     asyncio.run(client.set_boost_charge("device", enabled=True))
 
     assert transport.calls[0][1] == {"deviceId": "device", "action": "SUSPEND"}
-    assert transport.calls[1][1] == {"input": {"deviceId": "device", "action": "BOOST"}}
+    assert transport.calls[1][1] == {
+        "input": {"deviceId": "device", "action": "BOOST"}}
+
+
+def test_smartflex_switches_use_the_vehicle_device_identifier():
+    device = SmartFlexDevice("vehicle", "Vehicle",
+                             "ELECTRIC_VEHICLES", provider="Provider")
+    coordinator = SimpleNamespace(
+        account_number="account", data=SmartFlexSnapshot(devices=(device,)))
+
+    smart_control = SmartControlSwitch(coordinator, device)
+    boost = BoostChargeSwitch(coordinator, device)
+
+    assert smart_control.device_info["identifiers"] == {
+        ("octopus_energy_de", "account_vehicle")}
+    assert boost.device_info["identifiers"] == {
+        ("octopus_energy_de", "account_vehicle")}
